@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Hub - Gemini Integration</title>
+    <title>Admin Hub - Exact Design</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 .wrap {
@@ -24,25 +24,22 @@
 .brand-name { color: #fff; font-size: 17px; font-weight: 500; letter-spacing: -0.02em; }
 .brand-dept { color: rgba(0,230,255,0.38); font-size: 11px; margin-top: 2px; letter-spacing: 0.03em; }
 
-/* AI AGENT BADGE - AHORA COMO ENLACE */
+/* AI AGENT BADGE */
 .ai-badge {
   display: flex; align-items: center; gap: 7px;
   background: rgba(0,90,130,0.15);
   border: 1px solid rgba(0,230,255,0.25);
   border-radius: 10px;
   padding: 5px 10px 5px 6px;
-  text-decoration: none; /* Quitar subrayado */
+  cursor: pointer; /* Cambiado a pointer para indicar que es clicable */
   position: absolute;
   bottom: 12px;
   right: 14px;
   z-index: 50;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  transition: transform 0.2s ease;
 }
-.ai-badge:hover {
-  background: rgba(0,230,255,0.1);
-  border-color: rgba(0,230,255,0.6);
-  transform: translateY(-2px);
-}
+.ai-badge:hover { transform: scale(1.05); background: rgba(0,90,130,0.25); }
 .ai-orb {
   width: 30px; height: 30px; border-radius: 50%;
   background: #001828;
@@ -151,138 +148,6 @@
       <circle cx="350" cy="265" r="300" fill="url(#cg)"/>
       <circle cx="350" cy="265" r="160" fill="url(#bg2)"/>
       <polyline points="350,265 420,265 420,180 480,180" fill="none" stroke="rgba(0,180,255,0.18)" stroke-width="1.2"/>
+      <polyline points="420,180 520,180 520,120" fill="none" stroke="rgba(0,180,255,0.12)" stroke-width="1"/>
       <polyline points="350,265 460,265 460,320 530,320" fill="none" stroke="rgba(0,180,255,0.15)" stroke-width="1.2"/>
-      <polyline points="350,265 280,265 280,180 220,180" fill="none" stroke="rgba(0,180,255,0.18)" stroke-width="1.2"/>
-      <polyline points="350,265 240,265 240,320 170,320" fill="none" stroke="rgba(0,180,255,0.15)" stroke-width="1.2"/>
-      <circle class="rcw"  cx="350" cy="265" r="132" fill="none" stroke="rgba(0,230,255,0.1)" stroke-width="1"/>
-      <circle class="rccw" cx="350" cy="265" r="215" fill="none" stroke="rgba(0,180,255,0.05)" stroke-width="1" stroke-dasharray="2 14"/>
-      <line class="scanner" x1="350" y1="265" x2="350" y2="133" stroke="rgba(0,230,255,0.25)" stroke-width="1.5"/>
-      <circle class="scanner" cx="350" cy="133" r="3" fill="rgba(0,230,255,0.55)"/>
-    </svg>
-
-    <a href="https://gemini.google.com/" target="_blank" class="ai-badge" id="ai-link">
-      <div class="ai-orb">
-        <div class="ai-orb-ring"></div>
-        <svg width="22" height="22" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g transform="scale(0.85 0.85) translate(8 10)"> 
-            <path d="M10 20C10 20 25 5 45 15C55 20 60 35 60 50C60 65 55 80 45 85C35 90 20 85 15 75C10 65 10 50 10 50" fill="none" stroke="#22D3EE" stroke-width="2"/>
-            <path d="M50 15L55 10H65M60 25L65 20M55 40L65 35M60 55L65 50" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="40" cy="50" r="5" fill="#22D3EE"/>
-            <circle cx="68" cy="10" r="1.5" fill="#22D3EE"/>
-            <circle cx="68" cy="35" r="1.5" fill="#22D3EE"/>
-          </g>
-        </svg>
-      </div>
-      <div class="ai-texts">
-        <div class="ai-status">
-          <div class="ai-dot"></div>
-          <span class="ai-status-text">Agente activo</span>
-        </div>
-        <span class="ai-name">AITOR (Abrir Gemini)</span>
-      </div>
-    </a>
-
-    <div class="hub">
-      <div class="hp" style="width:138px;height:138px;"></div>
-      <div class="hp" style="width:164px;height:164px;animation-delay:.9s;"></div>
-      <svg width="78" height="78" viewBox="0 0 78 78" fill="none">
-        <circle cx="39" cy="39" r="37" stroke="#00E6FF" stroke-width="1.5" fill="none" opacity="0.7"/>
-        <circle cx="39" cy="39" r="16" fill="#021A30" stroke="#00E6FF" stroke-width="1.5"/>
-      </svg>
-    </div>
-
-    <div class="node" style="left:50%;top:16.5%;" data-k="reportes">
-      <div class="bubble" style="width:76px;height:76px;background:rgba(0,22,42,0.92);">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M3 26l7-10 6 5 6-11 6 7" stroke="#00E6FF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <span class="node-label">Reportes</span>
-    </div>
-    <div class="node" style="left:79.5%;top:30%;" data-k="cobros">
-      <div class="bubble" style="width:76px;height:76px;background:rgba(0,26,36,0.92);">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="11" stroke="#00CFCF" stroke-width="1.7"/><path d="M15 10v5.5l4 2.5" stroke="#00CFCF" stroke-width="1.7" stroke-linecap="round"/></svg>
-      </div>
-      <span class="node-label">Cobros</span>
-    </div>
-    <div class="node" style="left:79.5%;top:70%;" data-k="check">
-      <div class="bubble" style="width:76px;height:76px;background:rgba(0,26,46,0.92);">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="3" y="3" width="24" height="24" rx="4" stroke="#00E6FF" stroke-width="1.7"/><path d="M8 15l5 5 9-9" stroke="#00E6FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <span class="node-label">Check</span>
-    </div>
-    <div class="node" style="left:50%;top:83.5%;" data-k="seguimientos">
-      <div class="bubble" style="width:76px;height:76px;background:rgba(0,18,40,0.92);">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="11" r="5.5" stroke="#5DADE2" stroke-width="1.7"/><path d="M4 27c0-6.075 4.925-11 11-11s11 4.925 11 11" stroke="#5DADE2" stroke-width="1.7" stroke-linecap="round"/></svg>
-      </div>
-      <span class="node-label">Seguimientos</span>
-    </div>
-
-    <div class="hint" id="hint">toca una herramienta</div>
-  </div>
-
-  <div class="detail off" id="panel">
-    <div class="d-orb" id="d-orb"></div>
-    <div>
-      <div class="d-title" id="d-title"></div>
-      <div class="d-desc"  id="d-desc"></div>
-    </div>
-    <button class="d-cta" id="d-cta">Preguntar a Gemini →</button>
-  </div>
-</div>
-
-<script>
-// Base de datos de herramientas
-const D = {
-  reportes: { label:"Reportes", desc:"Analítica operativa y financiera. Haz clic para preguntar a Gemini sobre informes.", prompt:"Dime cómo puedo mejorar los reportes de gestión de cobros.", ic:"#00E6FF" },
-  cobros: { label:"Cobros", desc:"Ciclo completo de cobro. Pregunta a Gemini sobre estrategias de pipeline.", prompt:"Dame estrategias efectivas para el seguimiento de cobros pendientes.", ic:"#00CFCF" },
-  check: { label:"Check", desc:"Validación y verificación. Gemini te ayuda con el control de calidad.", prompt:"¿Qué puntos clave debo revisar en una auditoría de calidad de administración?", ic:"#00E6FF" },
-  seguimientos: { label:"Seguimientos", desc:"Histórico de clientes. Consulta a la IA sobre gestión de expedientes.", prompt:"Redacta un correo amable pero firme para el seguimiento de un cliente con retraso.", ic:"#5DADE2" }
-};
-
-// Función para abrir Gemini con un texto predefinido
-function preguntarGemini(texto) {
-    const url = `https://gemini.google.com/app?q=${encodeURIComponent(texto)}`;
-    window.open(url, '_blank');
-}
-
-// Gestión de clics en los nodos
-document.querySelectorAll('.node').forEach(n => {
-  n.addEventListener('click', () => {
-    const k = n.dataset.k, d = D[k];
-    if (!d) return;
-    document.getElementById('hint').style.display = 'none';
-    const panel = document.getElementById('panel');
-    panel.classList.remove('off');
-    
-    document.getElementById('d-title').textContent = d.label;
-    document.getElementById('d-desc').textContent = d.desc;
-    
-    // Al pulsar el botón del panel, abre Gemini con el prompt específico
-    document.getElementById('d-cta').onclick = () => preguntarGemini(d.prompt);
-  });
-});
-
-// Cerrar panel si se pulsa fuera
-document.getElementById('scene').addEventListener('click', e => {
-  if (!e.target.closest('.node') && !e.target.closest('#ai-link')) {
-      document.getElementById('panel').classList.add('off');
-  }
-});
-
-// Canvas Background (Simplified)
-const cv = document.getElementById('bgc');
-const ctx = cv.getContext('2d');
-function drawBg() {
-  cv.width = cv.offsetWidth; cv.height = cv.offsetHeight;
-  ctx.fillStyle = 'rgba(0,160,220,0.05)';
-  for(let x=0;x<cv.width;x+=40){
-    for(let y=0;y<cv.height;y+=40){
-      ctx.beginPath();ctx.arc(x,y,0.5,0,Math.PI*2);ctx.fill();
-    }
-  }
-}
-drawBg();
-window.addEventListener('resize', drawBg);
-</script>
-
-</body>
-</html>
+      <polyline points="350,265 440,200 520,2
