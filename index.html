@@ -144,8 +144,7 @@
 .avatar-hud { position: absolute; top: 14px; right: 10px; background: rgba(0,5,20,0.85); border: 1px solid rgba(0,230,255,0.4); border-radius: 6px; padding: 3px 9px; font-family: 'Courier New',monospace; font-size: 9px; letter-spacing: 2px; color: rgba(0,230,255,0.9); text-shadow: 0 0 6px rgba(0,230,255,0.6); z-index: 7; }
 .avatar-scanlines { position: absolute; inset: 0; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px); pointer-events: none; z-index: 6; }
 .avatar-particles { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
-.av-particle { position: absolute; width: 2px; height: 2px; background: rgba(0,230,255,0.8); border-radius: 50%; animation: av-float linear infinite; opacity: 0; }
-@keyframes av-float { 0%{transform:translateY(100%) translateX(0);opacity:0;} 10%{opacity:.8;} 90%{opacity:.2;} 100%{transform:translateY(-30px) translateX(15px);opacity:0;} }
+
 </style>
 </head>
 <body>
@@ -305,6 +304,20 @@
       <div class="avatar-shadow"></div>
       <div class="avatar-platform"></div>
       <div class="avatar-hud">SYS.ACTIVE</div>
+
+      <!-- Botón sonido -->
+      <button class="sound-btn" id="soundBtn" title="Activar sonido">
+        <svg id="soundIconOff" width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" stroke="#00E6FF" stroke-width="1.6" stroke-linejoin="round"/>
+          <line x1="23" y1="9" x2="17" y2="15" stroke="#00E6FF" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="17" y1="9" x2="23" y2="15" stroke="#00E6FF" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <svg id="soundIconOn" width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:none">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" stroke="#00E6FF" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#00E6FF" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#00E6FF" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
 
   </div>
@@ -381,7 +394,10 @@ document.addEventListener('DOMContentLoaded', function() {
   function openModal(prompt){
     modal.classList.add('open');
     const v=document.getElementById('avatarVideo');
-    if(v)v.play().catch(()=>{});
+    if(v){
+      v.muted=false;   // activa sonido al primer clic del usuario
+      v.play().catch(()=>{ v.muted=true; v.play(); }); // fallback silencioso si el navegador bloquea
+    }
     spawnParticles();
     if(messages.length===0){
       appendMsg('model','Hola! Soy **AITOR**, tu asistente de Gestión de Cobros. ¿En qué puedo ayudarte?');
