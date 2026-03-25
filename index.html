@@ -333,7 +333,13 @@ document.addEventListener('DOMContentLoaded', function() {
     reportes:    {label:'Reportes',    desc:'Analitica operativa y financiera: dashboards por linea editorial, comparativas mensuales y exportacion.',        bg:'#00162A',ic:'#00E6FF',prompt:'Ayudame con el modulo de Reportes del Admin Hub.'},
     cobros:      {label:'Cobros',      desc:'Ciclo completo de cobro: vencimientos, pipeline de reclamacion por fases y estado en tiempo real por cliente.',  bg:'#001A24',ic:'#00CFCF',prompt:'Ayudame con el modulo de Cobros del Admin Hub.'},
     check:       {label:'Check',       desc:'Validacion y verificacion de operaciones: control de calidad, revisiones pendientes y aprobaciones del equipo.', bg:'#001A2E',ic:'#00E6FF',prompt:'Ayudame con el modulo de Check y validaciones del Admin Hub.'},
-    seguimientos:{label:'Seguimientos',desc:'Seguimiento de clientes y expedientes: historico de interacciones, alertas de contacto y estado de gestion.',   bg:'#001228',ic:'#5DADE2',prompt:'Ayudame con el modulo de Seguimientos de clientes del Admin Hub.'},
+    seguimientos: { 
+    label:"Seguimientos",  
+    desc:"Archivo Maestro de Excel: Seguimiento detallado de clientes y expedientes alojado en Teams.",   
+    bg:"#001228", 
+    ic:"#5DADE2", 
+    excelUrl: "Seguimiento CC, Bajas y Devoluciones..xlsx" // 
+  },
     manuales:    {label:'Manuales',    desc:'Repositorio de manuales operativos, guias de procedimiento y documentacion interna del departamento.',          bg:'#001520',ic:'#22D3EE',prompt:'Ayudame con los Manuales operativos del Admin Hub.'},
     comisiones:  {label:'Comisiones',  desc:'Calculo y seguimiento de comisiones: estructuras por agente, liquidaciones periodicas y trazabilidad completa.',bg:'#001820',ic:'#40C8E0',prompt:'Ayudame con el modulo de Comisiones del Admin Hub.'},
     convo:       {label:"Convo '27",   desc:'Convocatoria 2027: planning, documentacion, hitos del calendario y seguimiento de objetivos del ejercicio.',    bg:'#000E28',ic:'#00BFFF',prompt:'Ayudame con la Convocatoria 2027 del Admin Hub.'}
@@ -342,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
     reportes:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M2.5 22l6-8.5 5 4 5-9 5.5 6" stroke="{c}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     cobros:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="10" stroke="{c}" stroke-width="1.5"/><path d="M13 8.5v5.5l3.5 2.5" stroke="{c}" stroke-width="1.5" stroke-linecap="round"/></svg>`,
     check:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="3" y="3" width="20" height="20" rx="3.5" stroke="{c}" stroke-width="1.5"/><path d="M7 13l4.5 4.5 7.5-8" stroke="{c}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    seguimientos:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="9" r="5" stroke="{c}" stroke-width="1.5"/><path d="M4 24c0-4.97 4.03-9 9-9s9 4.03 9 9" stroke="{c}" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+    seguimientos:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 4h18v18H4V4z" fill="#217346"/><path d="M10 8h8v2h-8V8zm0 4h8v2h-8v-2zm0 4h8v2h-8v-2zM7 8h2v2H7V8zm0 4h2v2H7v-2zm0 4h2v2H7v-2z" fill="white"/></svg>`,
     manuales:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="3" y="1.5" width="20" height="23" rx="2.5" stroke="{c}" stroke-width="1.5"/><path d="M7 9h12M7 14h12M7 19h8" stroke="{c}" stroke-width="1.4" stroke-linecap="round"/></svg>`,
     comisiones:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="9" cy="9" r="3.5" stroke="{c}" stroke-width="1.5"/><circle cx="17" cy="17" r="3.5" stroke="{c}" stroke-width="1.5"/><line x1="5.5" y1="20.5" x2="20.5" y2="5.5" stroke="{c}" stroke-width="1.4" stroke-linecap="round"/></svg>`,
     convo:`<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="2" y="3" width="22" height="15" rx="2.5" stroke="{c}" stroke-width="1.5"/><path d="M7 22l2.5-4h7l2.5 4" stroke="{c}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 9h12M7 13.5h6" stroke="{c}" stroke-width="1.4" stroke-linecap="round"/></svg>`
