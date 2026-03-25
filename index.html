@@ -390,7 +390,7 @@ async function sendMessage() {
     ...messages.slice(-12)
   ],
   generationConfig: { maxOutputTokens: 1024, temperature: 0.7 }
-})
+});
 
     const data = await res.json();
     typing.remove();
