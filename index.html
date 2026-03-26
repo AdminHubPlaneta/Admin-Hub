@@ -308,7 +308,9 @@ manuales: { label:'Manuales', url: 'manuales/index.html'},
     n.addEventListener('click', () => {
       const d = D[n.dataset.k];
       if (!d) return;
-      if (d.excelUrl) {
+      if (d.url) {
+        window.location.href = d.url;
+      } else if (d.excelUrl) {
         window.open(d.excelUrl, '_blank');
       } else {
         openAitor(d.prompt);
