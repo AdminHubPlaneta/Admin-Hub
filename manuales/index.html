@@ -107,6 +107,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .cat-node .bubble .cat-count {
   position: absolute;
   top: -4px; right: -4px;
+   display: none;
   background: rgba(0,180,255,0.9);
   color: #020B18;
   font-size: 10px; font-weight: 700;
@@ -118,7 +119,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
    align-items: center;
 justify-content: center;
 }
-.cat-node .bubble .cat-count.show { display: block; }
+.cat-node .bubble .cat-count.show { display: flex; }
 
 /* Label debajo */
 .cat-node .node-label {
