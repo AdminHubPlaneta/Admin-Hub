@@ -6,9 +6,20 @@
 <title>Manuales — Admin Hub</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #010816; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #E0F7FF; min-height: 100vh; }
-
-.bg-overlay { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, rgba(0, 40, 80, 0.15) 0%, rgba(1, 8, 22, 0.95) 80%, rgba(2,11,24,0.97) 100%); }
+body { 
+  background: #010409; /* Un negro casi puro para la base */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+  color: #E0F7FF; 
+  min-height: 100vh; 
+}
+.bg-overlay { 
+  position: fixed; 
+  inset: 0; 
+  z-index: 0; 
+  pointer-events: none; 
+  /* Gradiente radial: foco azul oscuro muy sutil en el centro, oscuridad profunda en los bordes */
+  background: radial-gradient(circle at center, rgba(0, 20, 40, 0.25) 0%, rgba(1, 4, 9, 0.98) 75%, #010409 100%); 
+}
 canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
 .corner { position: fixed; width: 28px; height: 28px; z-index: 5; pointer-events: none; }
