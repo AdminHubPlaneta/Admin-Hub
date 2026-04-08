@@ -51,15 +51,11 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   align-items: center;
   min-height: 280px;
 }
-
-/* Líneas SVG de conexión */
 .connector-svg {
   position: absolute;
   inset: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 0;
 }
-
-/* Burbujas en fila */
 .nodes-row {
   position: relative; z-index: 2;
   display: flex;
@@ -67,7 +63,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   gap: 48px;
   flex-wrap: wrap;
 }
-
 .node {
   display: flex; flex-direction: column; align-items: center; gap: 12px;
   cursor: pointer;
@@ -76,7 +71,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 }
 .node:hover { transform: scale(1.1); }
 .node.active { transform: scale(1.08); }
-
 .bubble {
   width: 108px; height: 108px; border-radius: 50%;
   background: rgba(3,10,20,0.92);
@@ -104,7 +98,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 }
 @keyframes node-pulse { 0%,100%{opacity:.2;transform:scale(1);} 50%{opacity:.75;transform:scale(1.07);} }
 
-/* Badge de estado */
 .status-badge {
   position: absolute; bottom: -2px; right: -2px;
   width: 22px; height: 22px; border-radius: 50%;
@@ -133,10 +126,9 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   position: relative; z-index: 10;
   padding: 22px 32px 60px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
-
 .stat-card {
   background: rgba(0,16,32,0.85);
   border: 1px solid rgba(0,212,240,0.1);
@@ -145,6 +137,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   display: flex; flex-direction: column; gap: 4px;
   transition: border-color 0.2s, transform 0.2s;
   animation: fadeUp 0.4s ease both;
+  cursor: pointer;
 }
 .stat-card:hover { border-color: rgba(0,212,240,0.3); transform: translateY(-2px); }
 @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
@@ -167,11 +160,14 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .stat-value.lock { color: #a878f0; }
 .stat-sub { font-size: 11px; color: rgba(0,200,230,0.3); margin-top: 2px; }
 
-/* ── Corner decorations ── */
-@media(max-width:600px){
+@media(max-width:700px){
   .topbar,.page-head,.stats-grid{ padding-left:16px; padding-right:16px; }
   .nodes-row { gap:24px; }
   .bubble { width:82px; height:82px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width:400px){
+  .stats-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -219,33 +215,28 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   <div class="page-sub">Indicadores operativos · Gestión de Cobros</div>
 </div>
 
-<!-- Nodes area con líneas de conexión -->
+<!-- Nodes area -->
 <div class="nodes-area">
-
-  <!-- SVG líneas decorativas -->
   <svg class="connector-svg" viewBox="0 0 900 260" preserveAspectRatio="xMidYMid meet">
-    <!-- Líneas desde centro a cada nodo -->
     <line x1="450" y1="130" x2="100" y2="130" stroke="rgba(0,200,240,0.1)" stroke-width="1" stroke-dasharray="5 5"/>
     <line x1="450" y1="130" x2="267" y2="130" stroke="rgba(0,200,240,0.1)" stroke-width="1" stroke-dasharray="5 5"/>
     <line x1="450" y1="130" x2="633" y2="130" stroke="rgba(0,200,240,0.1)" stroke-width="1" stroke-dasharray="5 5"/>
     <line x1="450" y1="130" x2="800" y2="130" stroke="rgba(0,200,240,0.1)" stroke-width="1" stroke-dasharray="5 5"/>
-    <!-- Puntos en extremos -->
     <circle cx="100"  cy="130" r="2.5" fill="rgba(0,212,240,0.2)"/>
     <circle cx="267"  cy="130" r="2.5" fill="rgba(0,212,240,0.2)"/>
     <circle cx="450"  cy="130" r="3.5" fill="rgba(0,212,240,0.4)"/>
     <circle cx="633"  cy="130" r="2.5" fill="rgba(0,212,240,0.2)"/>
     <circle cx="800"  cy="130" r="2.5" fill="rgba(0,212,240,0.2)"/>
-    <!-- Arcos concéntricos decorativos -->
     <circle cx="450" cy="130" r="55"  fill="none" stroke="rgba(0,180,220,0.06)" stroke-width="1"/>
     <circle cx="450" cy="130" r="100" fill="none" stroke="rgba(0,180,220,0.04)" stroke-width="1"/>
     <circle cx="450" cy="130" r="155" fill="none" stroke="rgba(0,180,220,0.03)" stroke-width="1"/>
   </svg>
 
-  <!-- Burbujas -->
   <div class="nodes-row">
 
     <!-- Activa -->
-    <div class="node active" data-node="activa" onclick="window.open('https://app.powerbi.com/groups/me/reports/f3a955a3-767d-4fa8-a1ed-af2099a3bb2d/3df40084bc6d39bbd239?ctid=d70c4195-cdf2-4797-b26c-e913e91c68c6&experience=power-bi','_blank')">
+    <div class="node active" data-node="activa"
+         onclick="window.open('https://app.powerbi.com/groups/me/reports/f3a955a3-767d-4fa8-a1ed-af2099a3bb2d/3df40084bc6d39bbd239?ctid=d70c4195-cdf2-4797-b26c-e913e91c68c6&experience=power-bi','_blank')">
       <div class="bubble">
         <div class="status-badge badge-ok">✓</div>
         <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
@@ -303,30 +294,30 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
 <div class="divider"></div>
 
-<!-- Stats grid -->
+<!-- Stats grid — 4 columnas fijas -->
 <div class="stats-grid">
 
-  <div class="stat-card ok" style="animation-delay:0s">
-    <div class="stat-label">CONVOCATORIA VIVA</div>
-    <div class="stat-card ok" style="animation-delay:0s; cursor:pointer;" 
-     onclick="window.open('https://app.powerbi.com/groups/me/reports/f3a955a3-767d-4fa8-a1ed-af2099a3bb2d/3df40084bc6d39bbd239?ctid=d70c4195-cdf2-4797-b26c-e913e91c68c6&experience=power-bi','_blank')">
+  <div class="stat-card ok" style="animation-delay:0s"
+       onclick="window.open('https://app.powerbi.com/groups/me/reports/f3a955a3-767d-4fa8-a1ed-af2099a3bb2d/3df40084bc6d39bbd239?ctid=d70c4195-cdf2-4797-b26c-e913e91c68c6&experience=power-bi','_blank')">
+    <div class="stat-label">Convocatoria viva</div>
+    <div class="stat-value ok">—</div>
     <div class="stat-sub">alumnos en seguimiento</div>
   </div>
 
   <div class="stat-card ok" style="animation-delay:0.06s">
-    <div class="stat-label">CONVOCATORIA VIVA</div>
+    <div class="stat-label">Convocatoria viva</div>
     <div class="stat-value ok">OBS</div>
     <div class="stat-sub">al corriente de pago</div>
   </div>
 
   <div class="stat-card warn" style="animation-delay:0.12s">
-    <div class="stat-label">CONVOCATORIA VIVA</div>
+    <div class="stat-label">Convocatoria viva</div>
     <div class="stat-value warn">ESDesign</div>
     <div class="stat-sub">por actualizar</div>
   </div>
 
   <div class="stat-card info" style="animation-delay:0.18s">
-    <div class="stat-label">CONVOCATORIA VIVA</div>
+    <div class="stat-label">Convocatoria viva</div>
     <div class="stat-value info">UCMA</div>
     <div class="stat-sub">próximo cierre</div>
   </div>
@@ -334,7 +325,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 </div>
 
 <script>
-/* ── Canvas background ── */
 const cv = document.getElementById('bgc'), ctx = cv.getContext('2d');
 function drawBg() {
   cv.width = window.innerWidth; cv.height = window.innerHeight;
@@ -354,7 +344,6 @@ function drawBg() {
 }
 drawBg(); window.addEventListener('resize', drawBg);
 
-/* ── Nodos activos ── */
 function setActive(el) {
   document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
