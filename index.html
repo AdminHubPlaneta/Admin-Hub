@@ -388,28 +388,56 @@ manuales: { label:'Manuales', url: 'manuales/index.html'},
     appendMsg('user', text);
     messages.push({ role:'user', parts:[{text}] });
     const typing = appendTyping();
-    try {
-      const res = await fetch(WORKER_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: GEMINI_MODEL,
-          contents: [
-            { role:'user',  parts:[{text:SYSTEM}] },
-            { role:'model', parts:[{text:'Entendido, soy AITOR y estoy listo para ayudar.'}] },
-            ...messages.slice(-12)
-          ],
-          generationConfig: { maxOutputTokens:1024, temperature:0.7 }
-        })
-      });
-      const data = await res.json(); typing.remove();
-      if (data.error) throw new Error(data.error.message);
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '(sin respuesta)';
-      messages.push({ role:'model', parts:[{text:reply}] });
-      appendMsg('model', reply);
-    } catch(err) {
-      typing.remove();
-      appendMsg('model', `Error al conectar con AITOR: ${err.message}`);
+   
+    const MAX_RETRIES = 3;
+    let lastError = null;
+
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        if (attempt > 1) {
+          // Actualiza el mensaje del typing para informar al usuario
+          const typingBubble = typing.querySelector('.msg-bubble');
+          if (typingBubble) typingBubble.innerHTML = `<em style="color:rgba(0,200,255,0.55);font-size:12px;">⏳ Un momento, reintentando… (${attempt}/${MAX_RETRIES})</em>`;
+          await new Promise(r => setTimeout(r, 1200 * attempt)); // 2.4s, 3.6s
+        }
+        const res = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: GEMINI_MODEL,
+            contents: [
+              { role:'user',  parts:[{text:SYSTEM}] },
+              { role:'model', parts:[{text:'Entendido, soy AITOR y estoy listo para ayudar.'}] },
+              ...messages.slice(-12)
+            ],
+            generationConfig: { maxOutputTokens:1024, temperature:0.7 }
+          })
+        });
+        const data = await res.json();
+        if (data.error) {
+          const msg = data.error.message || '';
+          const isOverload = msg.toLowerCase().includes('high demand') || msg.includes('RESOURCE_EXHAUSTED') || msg.includes('overloaded');
+          if (isOverload && attempt < MAX_RETRIES) { lastError = msg; continue; }
+          throw new Error(msg);
+        }
+        typing.remove();
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '(sin respuesta)';
+        messages.push({ role:'model', parts:[{text:reply}] });
+        appendMsg('model', reply);
+        lastError = null;
+        break;
+      } catch(err) {
+        lastError = err.message; 
+        if (attempt === MAX_RETRIES) {
+          typing.remove();
+          const isOverload = lastError.toLowerCase().includes('high demand') || lastError.includes('RESOURCE_EXHAUSTED') || lastError.includes('overloaded');
+          if (isOverload) {
+            appendMsg('model', '⏳ AITOR está procesando muchas solicitudes ahora mismo. Por favor, inténtalo de nuevo en unos segundos.');
+          } else {
+            appendMsg('model', `No he podido conectar con AITOR en este momento. Inténtalo de nuevo. _(${lastError})_`);
+          }
+        }
+      }
     }
     sendBtn.disabled = false; chatInput.focus();
   }
