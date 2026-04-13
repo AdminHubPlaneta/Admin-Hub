@@ -56,9 +56,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .search-input::placeholder { color:rgba(0,200,230,0.22); }
 .total-pill { background:rgba(0,30,55,0.8); border:1px solid rgba(0,230,255,0.15); border-radius:8px; padding:6px 12px; font-size:11px; color:rgba(0,200,230,0.5); letter-spacing:0.05em; white-space:nowrap; }
 
-/* ══════════════════════════════
-   CATEGORY BUBBLES
-══════════════════════════════ */
+/* ── Category Bubbles ── */
 .cats-section {
   position: relative; z-index: 10;
   padding: 24px 32px 0;
@@ -79,16 +77,11 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 }
 .cat-node:hover { transform: scale(1.1); }
 .cat-node.active { transform: scale(1.08); }
-
 .cat-node .bubble {
-  width: 102px;
-  height: 102px;
-  border-radius: 50%;
+  width: 102px; height: 102px; border-radius: 50%;
   background: rgba(0,21,32,0.92);
   border: 1.5px solid rgba(0,230,255,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   position: relative;
 }
@@ -101,41 +94,29 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .cat-node.active .bubble::after {
   content: '';
   position: absolute;
-  width: 100px; height: 100px;
-  border-radius: 50%;
+  width: 100px; height: 100px; border-radius: 50%;
   border: 1px solid rgba(0,230,255,0.18);
   animation: cat-pulse 2.5s ease-in-out infinite;
 }
 @keyframes cat-pulse { 0%,100%{opacity:.25;transform:scale(1);} 50%{opacity:.8;transform:scale(1.06);} }
-
 .cat-node .bubble .cat-count {
-  position: absolute;
-  top: -4px; right: -4px;
+  position: absolute; top: -4px; right: -4px;
   display: none;
-  background: rgba(0,180,255,0.9);
-  color: #020B18;
+  background: rgba(0,180,255,0.9); color: #020B18;
   font-size: 10px; font-weight: 700;
-  border-radius: 999px;
-  padding: 1px 6px;
+  border-radius: 999px; padding: 1px 6px;
   border: 1.5px solid #020B18;
   min-width: 20px; text-align: center;
-  align-items: center;
-  justify-content: center;
+  align-items: center; justify-content: center;
 }
 .cat-node .bubble .cat-count.show { display: flex; }
-
 .cat-node .node-label {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 12px; font-weight: 500;
   color: rgba(0,200,230,0.45);
-  text-align: center;
-  line-height: 1.2;
-  max-width: 90px;
+  text-align: center; line-height: 1.2; max-width: 90px;
   transition: color 0.2s;
 }
-.cat-node:hover .node-label { color: #00E6FF; }
-.cat-node.active .node-label { color: #00E6FF; }
-
+.cat-node:hover .node-label, .cat-node.active .node-label { color: #00E6FF; }
 .cat-node.drag-over .bubble {
   border-color: #00E6FF !important;
   background: rgba(0,100,160,0.4) !important;
@@ -151,7 +132,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
 /* ── Cards ── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-
 .m-card {
   background:rgba(0,18,38,0.88); border:1px solid rgba(0,230,255,0.12);
   border-radius:14px; padding:18px 18px 14px; display:flex; flex-direction:column; gap:11px;
@@ -163,10 +143,8 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .m-card:hover { border-color:rgba(0,230,255,0.38); transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,80,180,0.16); }
 .m-card:hover::before { opacity:1; }
 .m-card.dragging { opacity:0.25; cursor:grabbing; transform:scale(0.96); box-shadow:none; }
-
 .drag-handle { position:absolute; top:12px; right:12px; color:rgba(0,180,230,0.18); cursor:grab; transition:color 0.15s; line-height:1; font-size:14px; letter-spacing:1px; }
 .m-card:hover .drag-handle { color:rgba(0,180,230,0.5); }
-
 .card-top { display:flex; align-items:flex-start; gap:12px; }
 .card-icon { width:42px; height:42px; flex-shrink:0; border-radius:10px; background:rgba(0,40,70,0.9); border:1px solid rgba(0,230,255,0.2); display:flex; align-items:center; justify-content:center; font-size:18px; }
 .card-title-block { flex:1; min-width:0; padding-right:20px; }
@@ -178,7 +156,13 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .card-actions { display:flex; gap:5px; }
 .icon-btn { width:28px; height:28px; border-radius:7px; background:transparent; border:1px solid rgba(0,230,255,0.14); color:rgba(0,210,255,0.45); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; }
 .icon-btn:hover { background:rgba(0,230,255,0.09); border-color:rgba(0,230,255,0.5); color:#00E6FF; }
-.icon-btn.danger:hover { background:rgba(163,45,45,0.2); border-color:rgba(240,149,149,0.35); color:#F09595; }
+
+/* ── Loading ── */
+.loading-state { grid-column:1/-1; text-align:center; padding:4rem 1rem; color:rgba(0,200,230,0.28); }
+.loading-dots { display:inline-flex; gap:6px; margin-bottom:12px; }
+.loading-dots span { width:6px; height:6px; border-radius:50%; background:rgba(0,230,255,0.4); animation:ldot 1.2s ease-in-out infinite; }
+.loading-dots span:nth-child(2){animation-delay:.2s;} .loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes ldot { 0%,60%,100%{transform:translateY(0);opacity:.4;} 30%{transform:translateY(-6px);opacity:1;} }
 
 /* ── Empty ── */
 .empty-state { grid-column:1/-1; text-align:center; padding:4rem 1rem; color:rgba(0,200,230,0.28); }
@@ -194,7 +178,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .modal-head h2 { font-size:15px; font-weight:600; color:#E0F7FF; display:flex; align-items:center; gap:8px; }
 .modal-close { width:30px; height:30px; border-radius:8px; background:transparent; border:1px solid rgba(0,230,255,0.2); color:rgba(0,230,255,0.5); font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
 .modal-close:hover { background:rgba(0,230,255,0.1); color:#00E6FF; border-color:rgba(0,230,255,0.5); }
-
 .field { margin-bottom:14px; }
 .field label { display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,200,230,0.4); margin-bottom:6px; }
 .field input, .field textarea, .field select { width:100%; background:rgba(0,20,40,0.8); border:1px solid rgba(0,230,255,0.18); border-radius:9px; padding:10px 13px; color:#E0F7FF; font-size:13px; font-family:inherit; outline:none; transition:border-color 0.2s; appearance:none; }
@@ -203,19 +186,11 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .field textarea { resize:vertical; min-height:78px; }
 .field select option { background:#030E1E; color:#E0F7FF; }
 .area-hint { font-size:11px; color:rgba(0,200,230,0.3); margin-top:6px; display:flex; align-items:flex-start; gap:5px; line-height:1.5; }
-
 .modal-foot { display:flex; justify-content:flex-end; gap:8px; padding-top:14px; border-top:1px solid rgba(0,230,255,0.08); margin-top:4px; }
 .btn-cancel { background:transparent; border:1px solid rgba(0,230,255,0.2); border-radius:9px; padding:9px 16px; color:rgba(0,200,230,0.5); font-size:13px; cursor:pointer; font-family:inherit; transition:all 0.15s; }
 .btn-cancel:hover { background:rgba(0,230,255,0.06); color:#00E6FF; }
 .btn-save { background:rgba(0,80,130,0.4); border:1.5px solid rgba(0,230,255,0.45); border-radius:9px; padding:9px 20px; color:#00E6FF; font-size:13px; font-weight:500; cursor:pointer; font-family:inherit; transition:all 0.15s; }
 .btn-save:hover { background:rgba(0,230,255,0.12); border-color:#00E6FF; }
-
-/* view modal */
-.view-row { margin-bottom:14px; }
-.view-lbl { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(0,200,230,0.3); margin-bottom:5px; }
-.view-val { font-size:13px; color:rgba(220,245,255,0.72); line-height:1.6; background:rgba(0,20,40,0.6); border:1px solid rgba(0,230,255,0.1); border-radius:8px; padding:10px 13px; white-space:pre-wrap; max-height:180px; overflow-y:auto; }
-.view-link { display:inline-flex; align-items:center; gap:7px; color:#00E6FF; font-size:13px; text-decoration:none; background:rgba(0,80,130,0.25); border:1px solid rgba(0,230,255,0.25); border-radius:8px; padding:8px 14px; transition:all 0.15s; }
-.view-link:hover { background:rgba(0,230,255,0.1); border-color:rgba(0,230,255,0.5); }
 
 @media(max-width:600px){
   .topbar,.page-head,.toolbar,.cats-section,.grid{ padding-left:16px; padding-right:16px; }
@@ -285,7 +260,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
 <!-- Category nodes -->
 <div class="cats-section">
-
   <div class="cat-node active" id="node-all" data-cat="all"
        onclick="setActiveCat('all')"
        ondragover="onBubbleDragOver(event,'all')"
@@ -336,13 +310,17 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
     </div>
     <span class="node-label">Atención Cobros</span>
   </div>
-
 </div>
 
 <div class="divider"></div>
-<div class="grid" id="grid"></div>
+<div class="grid" id="grid">
+  <div class="loading-state">
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+    <p>Cargando manuales…</p>
+  </div>
+</div>
 
-<!-- ═══ Modal: Agregar / Editar ═══ -->
+<!-- Modal: Agregar / Editar -->
 <div class="overlay" id="formOverlay">
   <div class="modal">
     <div class="modal-head">
@@ -367,13 +345,13 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
     <div class="field">
       <label>Área *</label>
       <select id="fTag">
-        <option value="">— Seleccioná una categoría —</option>
+        <option value="">— Selecciona una categoría —</option>
         <option value="Administración Comercial">Administración Comercial</option>
         <option value="Atención Cobros">Atención Cobros</option>
       </select>
       <div class="area-hint">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        El área asigna el manual a su categoría. También podés arrastrarlo entre burbujas desde la grilla.
+        El área asigna el manual a su categoría. También puedes arrastrarlo entre burbujas desde la grilla.
       </div>
     </div>
     <div class="modal-foot">
@@ -383,43 +361,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </div>
 </div>
 
-<!-- ═══ Modal: Ver ═══ -->
-<div class="overlay" id="viewOverlay">
-  <div class="modal">
-    <div class="modal-head">
-      <h2>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        <span id="vTitle" style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-      </h2>
-      <button class="modal-close" onclick="closeOverlay('viewOverlay')">✕</button>
-    </div>
-    <div class="view-row">
-      <div class="view-lbl">Área</div>
-      <span class="card-tag" id="vTag" style="font-size:12px;padding:4px 12px;display:inline-block"></span>
-    </div>
-    <div class="view-row">
-      <div class="view-lbl">Descripción</div>
-      <div class="view-val" id="vDesc"></div>
-    </div>
-    <div class="view-row" id="vUrlRow">
-      <div class="view-lbl">Acceder al manual</div>
-      <a class="view-link" id="vUrl" href="#" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Abrir manual
-      </a>
-    </div>
-    <div class="view-row">
-      <div class="view-lbl">Fecha de carga</div>
-      <div style="font-size:12px;color:rgba(0,180,210,0.45);font-family:'Courier New',monospace" id="vDate"></div>
-    </div>
-    <div class="modal-foot">
-      <button class="btn-cancel" onclick="closeOverlay('viewOverlay')">Cerrar</button>
-    </div>
-  </div>
-</div>
-
 <script>
-/* ── Canvas ── */
 const cv = document.getElementById('bgc'), ctx = cv.getContext('2d');
 function drawBg() {
   cv.width = window.innerWidth; cv.height = window.innerHeight;
@@ -439,13 +381,33 @@ function drawBg() {
 }
 drawBg(); window.addEventListener('resize', drawBg);
 
-/* ── State ── */
-const STORE_KEY = 'adminhub_manuales_v2';
+const WORKER_URL = 'https://lucky-shadow-44ed.veronica-zueras.workers.dev';
+const STORE_KEY  = 'adminhub_manuales_v2';
 let items = [], activeCat = 'all', editIdx = null, dragIdx = null;
-function load(){ try{ items=JSON.parse(localStorage.getItem(STORE_KEY)||'[]'); }catch(e){ items=[]; } }
-function persist(){ localStorage.setItem(STORE_KEY, JSON.stringify(items)); }
 
-/* ── Category ── */
+async function load() {
+  try {
+    const res = await fetch(`${WORKER_URL}/kv?key=${STORE_KEY}`);
+    const data = await res.json();
+    items = data.value ? JSON.parse(data.value) : [];
+  } catch(e) {
+    items = [];
+  }
+  renderGrid();
+}
+
+async function persist() {
+  try {
+    await fetch(`${WORKER_URL}/kv`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: STORE_KEY, value: items })
+    });
+  } catch(e) {
+    console.error('Error guardando en KV:', e);
+  }
+}
+
 function setActiveCat(cat) {
   activeCat = cat;
   document.querySelectorAll('.cat-node').forEach(n => n.classList.toggle('active', n.dataset.cat === cat));
@@ -465,7 +427,6 @@ function updateBadges() {
   document.getElementById('totalPill').textContent = total + ' manual' + (total!==1?'es':'');
 }
 
-/* ── Helpers ── */
 function iconFor(tag){
   if(!tag) return '📄';
   const t=tag.toLowerCase();
@@ -479,10 +440,9 @@ function iconFor(tag){
 }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-/* ── Render ── */
 function renderGrid() {
   const q = document.getElementById('searchInput').value.toLowerCase();
-const filtered = items.filter(m => {
+  const filtered = items.filter(m => {
     const matchCat = activeCat==='all' || m.tag===activeCat;
     const matchQ   = !q || m.title.toLowerCase().includes(q)||(m.desc||'').toLowerCase().includes(q)||(m.tag||'').toLowerCase().includes(q);
     return matchCat && matchQ;
@@ -492,25 +452,25 @@ const filtered = items.filter(m => {
     return aP - bP;
   });
   updateBadges();
- const grid = document.getElementById('grid');
+  const grid = document.getElementById('grid');
   if(!filtered.length){
     grid.innerHTML=`<div class="empty-state">
       <svg width="44" height="44" viewBox="0 0 30 30" fill="none"><rect x="4" y="2" width="22" height="26" rx="3" stroke="#22D3EE" stroke-width="1.4"/><path d="M9 10h12M9 15h12M9 20h8" stroke="#22D3EE" stroke-width="1.2" stroke-linecap="round"/></svg>
       <p>${items.length?'Ningún manual coincide':'No hay manuales todavía'}</p>
-      <p class="sub">${items.length?'Probá con otro término o categoría':'Hacé clic en "Nuevo manual" para comenzar'}</p>
+      <p class="sub">${items.length?'Prueba con otro término o categoría':'Haz clic en "Nuevo manual" para comenzar'}</p>
     </div>`;
     return;
   }
 
-  const pinned  = filtered.filter(m => m.title.toLowerCase().startsWith('protocolo general'));
-  const rest    = filtered.filter(m => !m.title.toLowerCase().startsWith('protocolo general'));
+  const pinned = filtered.filter(m => m.title.toLowerCase().startsWith('protocolo general'));
+  const rest   = filtered.filter(m => !m.title.toLowerCase().startsWith('protocolo general'));
 
   function cardHtml(m, fi) {
     const ri = items.indexOf(m);
     return `<div class="m-card" draggable="true" data-idx="${ri}" style="animation-delay:${fi*0.045}s"
       ondragstart="onDragStart(event,${ri})" ondragend="onDragEnd()"
       onclick="if(!event.target.closest('.icon-btn')&&!event.target.closest('.drag-handle')&&'${esc(m.url)}') window.open('${esc(m.url)}','_blank')">
-      <div class="drag-handle" title="Arrastrá a una categoría">⠿</div>
+      <div class="drag-handle" title="Arrastra a una categoría">⠿</div>
       <div class="card-top">
         <div class="card-icon">${iconFor(m.tag)}</div>
         <div class="card-title-block">
@@ -522,11 +482,9 @@ const filtered = items.filter(m => {
       <div class="card-footer">
         <span class="card-date">${m.date||''}</span>
         <div class="card-actions">
-         
           <button class="icon-btn" onclick="openEdit(${ri})" title="Editar">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
           </button>
-          
         </div>
       </div>
     </div>`;
@@ -542,7 +500,6 @@ const filtered = items.filter(m => {
   grid.innerHTML = html;
 }
 
-/* ── Drag & Drop ── */
 function onDragStart(e,idx){
   dragIdx=idx;
   setTimeout(()=>{ const el=document.querySelector(`[data-idx="${idx}"]`); if(el) el.classList.add('dragging'); },0);
@@ -569,7 +526,6 @@ function onBubbleDrop(e,cat){
   items[dragIdx].tag=cat; persist(); renderGrid();
 }
 
-/* ── CRUD ── */
 function openAdd(){
   editIdx=null;
   document.getElementById('formTitle').textContent='Nuevo manual';
@@ -587,37 +543,23 @@ function openEdit(idx){
   document.getElementById('fTag').value=m.tag||'';
   openOverlay('formOverlay');
 }
-function saveManual(){
+async function saveManual(){
   const title=document.getElementById('fTitle').value.trim();
   const tag=document.getElementById('fTag').value;
   if(!title){ alert('El título es obligatorio.'); return; }
-  if(!tag){   alert('Seleccioná un área.'); return; }
-  const obj={ title, desc:document.getElementById('fDesc').value.trim(), url:document.getElementById('fUrl').value.trim(), tag, date:editIdx!==null?items[editIdx].date:new Date().toLocaleDateString('es-AR') };
+  if(!tag){   alert('Selecciona un área.'); return; }
+  const obj={ title, desc:document.getElementById('fDesc').value.trim(), url:document.getElementById('fUrl').value.trim(), tag, date:editIdx!==null?items[editIdx].date:new Date().toLocaleDateString('es-ES') };
   if(editIdx!==null) items[editIdx]=obj; else items.unshift(obj);
-  persist(); closeOverlay('formOverlay'); setActiveCat(tag);
-}
-function viewItem(idx){
-  const m=items[idx]; if(!m) return;
-  document.getElementById('vTitle').textContent=m.title;
-  document.getElementById('vTag').textContent=m.tag||'Sin categoría';
-  document.getElementById('vDesc').textContent=m.desc||'Sin descripción.';
-  document.getElementById('vDate').textContent=m.date||'—';
-  const lnk=document.getElementById('vUrl'), row=document.getElementById('vUrlRow');
-  if(m.url){ lnk.href=m.url; row.style.display='block'; } else { row.style.display='none'; }
-  openOverlay('viewOverlay');
-}
-function deleteItem(idx){
-  if(!confirm(`¿Eliminar "${items[idx]?.title}"?`)) return;
-  items.splice(idx,1); persist(); renderGrid();
+  await persist();
+  closeOverlay('formOverlay');
+  setActiveCat(tag);
 }
 
-/* ── Overlay ── */
 function openOverlay(id){ document.getElementById(id).classList.add('open'); }
 function closeOverlay(id){ document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); }));
 
-/* ── Init ── */
-load(); renderGrid();
+load();
 </script>
 </body>
 </html>
