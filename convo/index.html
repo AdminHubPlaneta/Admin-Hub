@@ -331,7 +331,7 @@ async function handleFile(file) {
 
             worksheet.eachRow((row) => {
                 row.eachCell((cell) => {
-                    const val = cell.value ? String(cell.value) : "";
+                    const val = cell.value ? String(cell.value).trim() : "";
                     if (regex.test(val)) {
                         cell.fill = {
                             type: 'pattern',
