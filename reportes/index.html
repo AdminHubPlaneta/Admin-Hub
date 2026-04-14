@@ -6,12 +6,7 @@
 <title>Reportes — Admin Hub</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: #041C2E;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #E0F7FF;
-  min-height: 100vh;
-}
+body { background: #041C2E; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #E0F7FF; min-height: 100vh; }
 .bg-overlay { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, rgba(0,60,110,0.45) 0%, rgba(4,28,46,0.85) 60%, #041C2E 100%); }
 canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .corner { position: fixed; width: 28px; height: 28px; z-index: 5; pointer-events: none; }
@@ -20,8 +15,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .corner.bl { bottom:14px; left:14px; border-bottom:1.5px solid rgba(0,230,255,0.35); border-left:1.5px solid rgba(0,230,255,0.35); }
 .corner.br { bottom:14px; right:14px; border-bottom:1.5px solid rgba(0,230,255,0.35); border-right:1.5px solid rgba(0,230,255,0.35); }
 .sys-tag { position:fixed; bottom:18px; left:50%; transform:translateX(-50%); font-family:'Courier New',monospace; font-size:9px; letter-spacing:0.14em; color:rgba(0,200,255,0.15); z-index:5; pointer-events:none; white-space:nowrap; }
-
-/* Topbar */
 .topbar { position:relative; z-index:20; padding:20px 28px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(0,230,255,0.08); }
 .brand { display:flex; align-items:center; gap:12px; }
 .brand-sq { width:40px; height:40px; border-radius:11px; background:#003A5C; border:1px solid rgba(0,230,255,0.4); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -29,8 +22,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .brand-dept { color:rgba(0,230,255,0.38); font-size:11px; margin-top:2px; letter-spacing:0.03em; }
 .back-btn { display:flex; align-items:center; gap:7px; background:rgba(0,90,130,0.15); border:1px solid rgba(0,230,255,0.25); border-radius:10px; padding:7px 14px; color:rgba(0,230,255,0.8); font-size:12px; cursor:pointer; text-decoration:none; transition:all 0.2s; }
 .back-btn:hover { background:rgba(0,230,255,0.1); border-color:rgba(0,230,255,0.6); color:#00E6FF; }
-
-/* Page head */
 .page-head { position:relative; z-index:10; padding:26px 32px 0; display:flex; align-items:center; justify-content:center; }
 .page-head-inner { text-align:center; }
 .page-eyebrow { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(0,230,255,0.35); margin-bottom:6px; display:flex; align-items:center; gap:6px; justify-content:center; }
@@ -40,8 +31,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .page-sub { color:rgba(0,200,230,0.35); font-size:12px; margin-top:5px; }
 .add-btn { display:flex; align-items:center; gap:8px; background:rgba(0,80,130,0.3); border:1.5px solid rgba(0,230,255,0.4); border-radius:10px; padding:10px 18px; color:#00E6FF; font-size:13px; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:nowrap; font-family:inherit; position:absolute; top:20px; right:28px; z-index:20; }
 .add-btn:hover { background:rgba(0,230,255,0.12); border-color:#00E6FF; transform:translateY(-1px); }
-
-/* Toolbar */
 .toolbar { position:relative; z-index:10; padding:18px 32px 0; display:flex; align-items:center; justify-content:center; gap:12px; }
 .search-wrap { width:38%; min-width:200px; position:relative; }
 .search-wrap svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); pointer-events:none; }
@@ -50,46 +39,44 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .search-input::placeholder { color:rgba(0,200,230,0.22); }
 .total-pill { background:rgba(0,30,55,0.8); border:1px solid rgba(0,230,255,0.15); border-radius:8px; padding:6px 12px; font-size:11px; color:rgba(0,200,230,0.5); white-space:nowrap; }
 
-/* Divider */
-.divider { position:relative; z-index:10; margin:20px 32px 0; height:1px; background:rgba(0,230,255,0.07); }
+/* ── Tarjetas marca ── */
+.section-lbl { position:relative; z-index:10; padding:22px 32px 0; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(0,230,255,0.3); display:flex; align-items:center; gap:6px; }
+.section-lbl::before { content:''; display:inline-block; width:18px; height:1px; background:rgba(0,230,255,0.2); }
+.marca-grid { position:relative; z-index:10; padding:10px 32px 0; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.mc { background:rgba(0,14,30,0.9); border:1px solid rgba(0,212,240,0.12); border-radius:13px; padding:14px 16px; animation:fadeUp 0.35s ease both; }
+.mc::before { content:''; display:block; height:2px; border-radius:2px; margin-bottom:11px; }
+.mc.obs::before    { background:linear-gradient(90deg,#1dcc84,transparent); }
+.mc.inesdi::before { background:linear-gradient(90deg,#a878f0,transparent); }
+.mc.esdesign::before { background:linear-gradient(90deg,#f0a830,transparent); }
+.mc.ucma::before   { background:linear-gradient(90deg,#3aabf0,transparent); }
+.mc-name { font-size:15px; font-weight:700; letter-spacing:-0.02em; margin-bottom:3px; }
+.mc.obs .mc-name    { color:#1dcc84; }
+.mc.inesdi .mc-name { color:#a878f0; }
+.mc.esdesign .mc-name { color:#f0a830; }
+.mc.ucma .mc-name   { color:#3aabf0; }
+.mc-subtitle { font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(0,180,210,0.32); margin-bottom:9px; }
+.mc-divider { height:1px; background:rgba(0,212,240,0.07); margin-bottom:9px; }
+.mc-stats { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.mc-stat { background:rgba(0,25,50,0.6); border-radius:7px; padding:7px 9px; border:1px solid rgba(0,212,240,0.07); }
+.mc-stat-lbl { font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(0,180,210,0.36); margin-bottom:3px; }
+.mc-stat-val { font-size:20px; font-weight:600; line-height:1; }
+.mc.obs .mc-stat-val    { color:#1dcc84; }
+.mc.inesdi .mc-stat-val { color:#a878f0; }
+.mc.esdesign .mc-stat-val { color:#f0a830; }
+.mc.ucma .mc-stat-val   { color:#3aabf0; }
+.mc-stat-val.muted { color:rgba(220,245,255,0.45) !important; font-size:18px; }
+.mc-updated { font-size:9px; color:rgba(0,180,210,0.2); margin-top:9px; text-align:right; font-family:'Courier New',monospace; }
 
-/* Grid */
-.grid { position:relative; z-index:10; padding:18px 32px 60px; display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; min-height:120px; }
-
-/* Cards */
-@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-.r-card {
-  background:rgba(0,16,32,0.85); border:1px solid rgba(0,230,255,0.1);
-  border-radius:14px; padding:0; display:flex; flex-direction:column;
-  transition:border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-  position:relative; overflow:hidden; cursor:pointer;
-  animation:fadeUp 0.35s ease both;
-}
-.r-card:hover { border-color:rgba(0,230,255,0.38); transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,80,180,0.16); }
-.card-accent { height:3px; width:100%; }
-.card-body { padding:16px 18px 14px; display:flex; flex-direction:column; gap:10px; flex:1; }
-.card-top { display:flex; align-items:flex-start; gap:12px; }
-.card-icon { width:42px; height:42px; flex-shrink:0; border-radius:10px; background:rgba(0,40,70,0.9); border:1px solid rgba(0,230,255,0.15); display:flex; align-items:center; justify-content:center; }
-.card-title-block { flex:1; min-width:0; padding-right:24px; }
-.card-title { font-size:14px; font-weight:600; color:#E0F7FF; line-height:1.3; }
-.card-desc { font-size:12px; color:rgba(0,200,230,0.4); line-height:1.6; flex:1; }
-.card-footer { display:flex; align-items:center; justify-content:space-between; padding-top:10px; border-top:1px solid rgba(0,230,255,0.07); }
-.card-date { font-size:10px; color:rgba(0,180,210,0.28); font-family:'Courier New',monospace; }
-.card-actions { display:flex; gap:5px; }
-.icon-btn { width:28px; height:28px; border-radius:7px; background:transparent; border:1px solid rgba(0,230,255,0.14); color:rgba(0,210,255,0.45); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; }
-.icon-btn:hover { background:rgba(0,230,255,0.09); border-color:rgba(0,230,255,0.5); color:#00E6FF; }
-.ext-arrow { position:absolute; top:14px; right:14px; color:rgba(0,230,255,0.2); transition:color 0.2s; }
-.r-card:hover .ext-arrow { color:rgba(0,230,255,0.6); }
-
-/* Loading / Empty */
-.loading-state, .empty-state { grid-column:1/-1; text-align:center; padding:4rem 1rem; color:rgba(0,200,230,0.28); }
-.loading-dots { display:inline-flex; gap:6px; margin-bottom:12px; }
-.loading-dots span { width:6px; height:6px; border-radius:50%; background:rgba(0,230,255,0.4); animation:ldot 1.2s ease-in-out infinite; }
-.loading-dots span:nth-child(2){animation-delay:.2s;} .loading-dots span:nth-child(3){animation-delay:.4s;}
-@keyframes ldot { 0%,60%,100%{transform:translateY(0);opacity:.4;} 30%{transform:translateY(-6px);opacity:1;} }
-.empty-state svg { margin-bottom:14px; opacity:0.35; display:block; margin-left:auto; margin-right:auto; }
-.empty-state p { font-size:14px; }
-.empty-state .sub { font-size:12px; margin-top:6px; color:rgba(0,180,210,0.2); }
+/* ── Burbujas reportes ── */
+.bubbles-wrap { position:relative; z-index:10; padding:14px 32px 60px; display:flex; flex-wrap:wrap; gap:28px; justify-content:center; }
+.rnode { display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1); }
+.rnode:hover { transform:scale(1.1); }
+.rbubble { width:108px; height:108px; border-radius:50%; background:rgba(3,10,20,0.92); border:1.5px solid rgba(0,230,255,0.15); display:flex; align-items:center; justify-content:center; position:relative; transition:border-color 0.2s, box-shadow 0.2s; box-shadow:inset 0 0 22px rgba(0,80,140,0.1); }
+.rnode:hover .rbubble { border-color:rgba(0,230,255,0.6); box-shadow:0 0 22px rgba(0,230,255,0.14),inset 0 0 22px rgba(0,100,160,0.1); }
+.rnode-label { font-size:12px; font-weight:500; color:rgba(0,190,220,0.5); text-align:center; line-height:1.3; max-width:100px; transition:color 0.2s; }
+.rnode:hover .rnode-label { color:#00E6FF; }
+.rbubble-edit { position:absolute; bottom:4px; right:4px; width:24px; height:24px; border-radius:50%; background:rgba(0,20,40,0.92); border:1px solid rgba(0,230,255,0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.15s; }
+.rnode:hover .rbubble-edit { border-color:rgba(0,230,255,0.6); }
 
 /* Modal */
 .overlay { position:fixed; inset:0; z-index:200; background:rgba(0,5,15,0.85); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:1rem; }
@@ -111,12 +98,21 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .btn-cancel:hover { background:rgba(0,230,255,0.06); color:#00E6FF; }
 .btn-save { background:rgba(0,80,130,0.4); border:1.5px solid rgba(0,230,255,0.45); border-radius:9px; padding:9px 20px; color:#00E6FF; font-size:13px; font-weight:500; cursor:pointer; font-family:inherit; transition:all 0.15s; }
 .btn-save:hover { background:rgba(0,230,255,0.12); border-color:#00E6FF; }
+.btn-delete { display:none; align-items:center; gap:6px; background:rgba(163,45,45,0.15); border:1px solid rgba(240,149,149,0.3); border-radius:9px; padding:9px 16px; color:#F09595; font-size:13px; cursor:pointer; font-family:inherit; margin-right:auto; transition:all 0.15s; }
+.btn-delete:hover { background:rgba(163,45,45,0.3); }
 
-@media(max-width:600px){
-  .topbar,.page-head,.toolbar,.grid { padding-left:16px; padding-right:16px; }
-  .grid { grid-template-columns:1fr; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.empty-state { width:100%; text-align:center; padding:3rem 1rem; color:rgba(0,200,230,0.28); }
+.empty-state svg { margin:0 auto 14px; display:block; opacity:.35; }
+.empty-state p { font-size:14px; }
+
+@media(max-width:700px){
+  .topbar,.page-head,.toolbar,.section-lbl,.marca-grid,.bubbles-wrap { padding-left:16px; padding-right:16px; }
+  .marca-grid { grid-template-columns:repeat(2,1fr); }
   .page-title { font-size:20px; }
+  .add-btn { position:static; margin:12px 16px 0; }
 }
+@media(max-width:420px){ .marca-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -125,9 +121,8 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 <canvas id="bgc"></canvas>
 <div class="corner tl"></div><div class="corner tr"></div>
 <div class="corner bl"></div><div class="corner br"></div>
-<div class="sys-tag">SYS.REPORTES v1.0 · NET.ACTIVE</div>
+<div class="sys-tag">SYS.REPORTES v2.0 · NET.ACTIVE</div>
 
-<!-- Topbar -->
 <div class="topbar">
   <div class="brand">
     <div class="brand-sq">
@@ -149,7 +144,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </a>
 </div>
 
-<!-- Page header -->
 <div class="page-head">
   <div class="page-head-inner">
     <div class="page-eyebrow">módulo · reportes</div>
@@ -167,7 +161,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </button>
 </div>
 
-<!-- Toolbar -->
 <div class="toolbar">
   <div class="search-wrap">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(0,230,255,0.35)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -176,14 +169,62 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   <div class="total-pill" id="totalPill">0 reportes</div>
 </div>
 
-<div class="divider"></div>
-
-<div class="grid" id="grid">
-  <div class="loading-state">
-    <div class="loading-dots"><span></span><span></span><span></span></div>
-    <p>Cargando reportes…</p>
+<!-- Tarjetas fijas de marca -->
+<div class="section-lbl">Convocatoria actual</div>
+<div class="marca-grid">
+  <div class="mc obs" style="animation-delay:0s">
+    <div class="mc-name">OBS</div>
+    <div class="mc-subtitle">Convocatoria actual</div>
+    <div class="mc-divider"></div>
+    <div class="mc-stats">
+      <div class="mc-stat"><div class="mc-stat-lbl">Total brutas</div><div class="mc-stat-val" id="obs-brutas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Bajas</div><div class="mc-stat-val muted" id="obs-bajas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">CC / CE</div><div class="mc-stat-val muted" id="obs-ccce">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Pendings</div><div class="mc-stat-val muted" id="obs-pendings">—</div></div>
+    </div>
+    <div class="mc-updated" id="obs-updated">Pendiente de URL</div>
+  </div>
+  <div class="mc inesdi" style="animation-delay:0.05s">
+    <div class="mc-name">INESDI</div>
+    <div class="mc-subtitle">Convocatoria actual</div>
+    <div class="mc-divider"></div>
+    <div class="mc-stats">
+      <div class="mc-stat"><div class="mc-stat-lbl">Total brutas</div><div class="mc-stat-val" id="inesdi-brutas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Bajas</div><div class="mc-stat-val muted" id="inesdi-bajas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">CC / CE</div><div class="mc-stat-val muted" id="inesdi-ccce">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Pendings</div><div class="mc-stat-val muted" id="inesdi-pendings">—</div></div>
+    </div>
+    <div class="mc-updated" id="inesdi-updated">Pendiente de URL</div>
+  </div>
+  <div class="mc esdesign" style="animation-delay:0.10s">
+    <div class="mc-name">ESDesign</div>
+    <div class="mc-subtitle">Convocatoria actual</div>
+    <div class="mc-divider"></div>
+    <div class="mc-stats">
+      <div class="mc-stat"><div class="mc-stat-lbl">Total brutas</div><div class="mc-stat-val" id="esdesign-brutas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Bajas</div><div class="mc-stat-val muted" id="esdesign-bajas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">CC / CE</div><div class="mc-stat-val muted" id="esdesign-ccce">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Pendings</div><div class="mc-stat-val muted" id="esdesign-pendings">—</div></div>
+    </div>
+    <div class="mc-updated" id="esdesign-updated">Pendiente de URL</div>
+  </div>
+  <div class="mc ucma" style="animation-delay:0.15s">
+    <div class="mc-name">UCMA</div>
+    <div class="mc-subtitle">Convocatoria actual</div>
+    <div class="mc-divider"></div>
+    <div class="mc-stats">
+      <div class="mc-stat"><div class="mc-stat-lbl">Total brutas</div><div class="mc-stat-val" id="ucma-brutas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Bajas</div><div class="mc-stat-val muted" id="ucma-bajas">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">CC / CE</div><div class="mc-stat-val muted" id="ucma-ccce">—</div></div>
+      <div class="mc-stat"><div class="mc-stat-lbl">Pendings</div><div class="mc-stat-val muted" id="ucma-pendings">—</div></div>
+    </div>
+    <div class="mc-updated" id="ucma-updated">Pendiente de URL</div>
   </div>
 </div>
+
+<!-- Reportes dinámicos como burbujas -->
+<div class="section-lbl" style="padding-top:24px;">Reportes</div>
+<div class="bubbles-wrap" id="grid"></div>
 
 <!-- Modal -->
 <div class="overlay" id="formOverlay">
@@ -195,18 +236,9 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
       </h2>
       <button class="modal-close" onclick="closeOverlay()">✕</button>
     </div>
-    <div class="field">
-      <label>Nombre *</label>
-      <input type="text" id="fTitle" placeholder="Nombre del reporte">
-    </div>
-    <div class="field">
-      <label>Descripción</label>
-      <textarea id="fDesc" placeholder="Breve descripción…"></textarea>
-    </div>
-    <div class="field">
-      <label>Enlace</label>
-      <input type="url" id="fUrl" placeholder="https://…">
-    </div>
+    <div class="field"><label>Nombre *</label><input type="text" id="fTitle" placeholder="Nombre del reporte"></div>
+    <div class="field"><label>Descripción</label><textarea id="fDesc" placeholder="Breve descripción…"></textarea></div>
+    <div class="field"><label>Enlace</label><input type="url" id="fUrl" placeholder="https://…"></div>
     <div class="field">
       <label>Color</label>
       <select id="fColor">
@@ -219,8 +251,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
       </select>
     </div>
     <div class="modal-foot">
-      <button id="deleteBtn" onclick="deleteReport()" style="display:none;align-items:center;gap:6px;background:rgba(163,45,45,0.15);border:1px solid rgba(240,149,149,0.3);border-radius:9px;padding:9px 16px;color:#F09595;font-size:13px;cursor:pointer;font-family:inherit;margin-right:auto;transition:all 0.15s;"
-        onmouseover="this.style.background='rgba(163,45,45,0.3)'" onmouseout="this.style.background='rgba(163,45,45,0.15)'">
+      <button class="btn-delete" id="deleteBtn" onclick="deleteReport()">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
         Eliminar
       </button>
@@ -252,12 +283,13 @@ drawBg(); window.addEventListener('resize', drawBg);
 
 const WORKER_URL = 'https://lucky-shadow-44ed.veronica-zueras.workers.dev';
 const STORE_KEY  = 'adminhub_reportes_v1';
+const DATA_URL   = ''; // ← Pega aquí la URL de datos cuando esté disponible
 
 const DEFAULTS = [
-  { title:'Becas', desc:'Informe de alumnos con beca activa', url:'', color:'#1dcc84', date:'' },
-  { title:'Cierres Antiguos', desc:'Histórico de cierres contables', url:'', color:'#f0a830', date:'' },
-  { title:'BI Curva', desc:'Dashboard Power BI · curva de cobros', url:'', color:'#3aabf0', date:'' },
-  { title:'SXDataHub', desc:'Plataforma de datos SalesXcelerate', url:'', color:'#a878f0', date:'' }
+  { title:'Becas',           desc:'Informe de alumnos con beca activa',   url:'', color:'#1dcc84', date:'' },
+  { title:'Cierres Antiguos',desc:'Histórico de cierres contables',        url:'', color:'#f0a830', date:'' },
+  { title:'BI Curva',        desc:'Dashboard Power BI · curva de cobros', url:'', color:'#3aabf0', date:'' },
+  { title:'SXDataHub',       desc:'Plataforma de datos SalesXcelerate',   url:'', color:'#a878f0', date:'' }
 ];
 
 let items = [], editIdx = null;
@@ -271,69 +303,55 @@ async function load() {
     items = JSON.parse(JSON.stringify(DEFAULTS));
   }
   renderGrid();
+  if (DATA_URL) loadMarcaData();
 }
 
-async function persist() {
+async function loadMarcaData() {
   try {
-    await fetch(`${WORKER_URL}/kv`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key: STORE_KEY, value: items })
+    const res = await fetch(DATA_URL);
+    const data = await res.json();
+    const now = new Date().toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+    ['obs','inesdi','esdesign','ucma'].forEach(m => {
+      const d = data[m] || {};
+      const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val ?? '—'; };
+      set(`${m}-brutas`,   d.brutas);
+      set(`${m}-bajas`,    d.bajas);
+      set(`${m}-ccce`,     d.ccce);
+      set(`${m}-pendings`, d.pendings);
+      const upd = document.getElementById(`${m}-updated`);
+      if(upd) upd.textContent = `Actualizado · ${now}`;
     });
-  } catch(e) {
-    console.error('Error guardando en KV:', e);
-  }
+  } catch(e) { console.error('Error datos marca:', e); }
 }
 
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function iconSvg(color) {
-  return `<svg width="20" height="20" viewBox="0 0 30 30" fill="none">
-    <path d="M3 26l7-10 6 5 6-11 6 7" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`;
-}
-
 function renderGrid() {
   const q = document.getElementById('searchInput').value.toLowerCase();
-  const filtered = items.filter(r =>
-    !q || r.title.toLowerCase().includes(q) || (r.desc||'').toLowerCase().includes(q)
-  );
+  const filtered = items.filter(r => !q || r.title.toLowerCase().includes(q) || (r.desc||'').toLowerCase().includes(q));
   document.getElementById('totalPill').textContent = items.length + ' reporte' + (items.length!==1?'s':'');
   const grid = document.getElementById('grid');
   if (!filtered.length) {
     grid.innerHTML = `<div class="empty-state">
       <svg width="44" height="44" viewBox="0 0 30 30" fill="none"><path d="M3 26l7-10 6 5 6-11 6 7" stroke="#22D3EE" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <p>${items.length ? 'Ningún reporte coincide' : 'No hay reportes todavía'}</p>
-      <p class="sub">${items.length ? 'Prueba con otro término' : 'Haz clic en "Añadir reporte" para comenzar'}</p>
     </div>`;
     return;
   }
   grid.innerHTML = filtered.map((r, fi) => {
     const ri = items.indexOf(r);
     const color = r.color || '#00E6FF';
-    return `<div class="r-card" style="animation-delay:${fi*0.05}s"
-      onclick="if(!event.target.closest('.icon-btn')&&'${esc(r.url)}') window.open('${esc(r.url)}','_blank')">
-      <div class="card-accent" style="background:${color};opacity:0.7;"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon">${iconSvg(color)}</div>
-          <div class="card-title-block">
-            <div class="card-title" style="color:${color}">${esc(r.title)}</div>
-          </div>
-        </div>
-        ${r.desc ? `<div class="card-desc">${esc(r.desc)}</div>` : ''}
-        <div class="card-footer">
-          <span class="card-date">${r.date||''}</span>
-          <div class="card-actions">
-            <button class="icon-btn" onclick="openEdit(${ri})" title="Editar">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
-            </button>
-          </div>
+    return `<div class="rnode" style="animation:fadeUp 0.35s ease ${fi*0.05}s both">
+      <div class="rbubble" style="border-color:${color}55;"
+        onclick="if('${esc(r.url)}') window.open('${esc(r.url)}','_blank')">
+        <svg width="32" height="32" viewBox="0 0 30 30" fill="none">
+          <path d="M3 26l7-10 6 5 6-11 6 7" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="rbubble-edit" onclick="event.stopPropagation();openEdit(${ri})">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(0,210,255,0.6)" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
         </div>
       </div>
-      ${r.url ? `<div class="ext-arrow">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </div>` : ''}
+      <span class="rnode-label" style="color:${color}cc">${esc(r.title)}</span>
     </div>`;
   }).join('');
 }
@@ -366,24 +384,29 @@ async function saveReport() {
   if (!title) { alert('El nombre es obligatorio.'); return; }
   const obj = {
     title,
-    desc: document.getElementById('fDesc').value.trim(),
-    url:  document.getElementById('fUrl').value.trim(),
+    desc:  document.getElementById('fDesc').value.trim(),
+    url:   document.getElementById('fUrl').value.trim(),
     color: document.getElementById('fColor').value,
-    date: editIdx !== null ? items[editIdx].date : new Date().toLocaleDateString('es-ES')
+    date:  editIdx !== null ? items[editIdx].date : new Date().toLocaleDateString('es-ES')
   };
   if (editIdx !== null) items[editIdx] = obj; else items.unshift(obj);
-  await persist();
-  closeOverlay();
-  renderGrid();
+  await persist(); closeOverlay(); renderGrid();
 }
 
 async function deleteReport() {
   const r = items[editIdx];
   if (!r || !confirm(`¿Eliminar "${r.title}"?`)) return;
   items.splice(editIdx, 1);
-  await persist();
-  closeOverlay();
-  renderGrid();
+  await persist(); closeOverlay(); renderGrid();
+}
+
+async function persist() {
+  try {
+    await fetch(`${WORKER_URL}/kv`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ key: STORE_KEY, value: items })
+    });
+  } catch(e) { console.error('KV error:', e); }
 }
 
 function closeOverlay() { document.getElementById('formOverlay').classList.remove('open'); }
