@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Convo '27 — Admin Hub</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -73,22 +76,22 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .brand-card:hover { border-color:rgba(0,212,240,0.25); transform:translateY(-2px); }
 @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 .brand-card::before { content:''; display:block; height:2px; border-radius:2px; margin-bottom:12px; }
-.brand-card.obs::before    { background:linear-gradient(90deg,#1dcc84,transparent); }
+.brand-card.obs::before     { background:linear-gradient(90deg,#1dcc84,transparent); }
 .brand-card.inesdi::before { background:linear-gradient(90deg,#a878f0,transparent); }
 .brand-card.esdesign::before { background:linear-gradient(90deg,#f0a830,transparent); }
-.brand-card.ucma::before   { background:linear-gradient(90deg,#3aabf0,transparent); }
+.brand-card.ucma::before    { background:linear-gradient(90deg,#3aabf0,transparent); }
 .brand-name-badge { font-size:18px; font-weight:700; letter-spacing:-0.02em; margin-bottom:12px; display:block; }
-.brand-card.obs .brand-name-badge    { color:#1dcc84; }
+.brand-card.obs .brand-name-badge     { color:#1dcc84; }
 .brand-card.inesdi .brand-name-badge { color:#a878f0; }
 .brand-card.esdesign .brand-name-badge { color:#f0a830; }
-.brand-card.ucma .brand-name-badge   { color:#3aabf0; }
+.brand-card.ucma .brand-name-badge    { color:#3aabf0; }
 .date-row { display:flex; flex-direction:column; gap:7px; }
 .date-item { display:flex; flex-direction:column; gap:2px; padding:7px 9px; background:rgba(0,30,55,0.6); border-radius:7px; border:1px solid rgba(0,212,240,0.07); }
 .date-lbl { font-size:11px; letter-spacing:0.04em; text-transform:uppercase; color:rgba(0,200,240,0.65); font-weight:500; }
 .date-val { font-size:12px; font-weight:500; color:rgba(220,245,255,0.75); font-family:'Courier New',monospace; }
 .days-left { display:inline-block; margin-top:3px; font-size:9px; padding:2px 6px; border-radius:4px; font-weight:600; }
 .days-left.soon { background:rgba(240,168,48,0.15); color:#f0a830; border:1px solid rgba(240,168,48,0.25); }
-.days-left.ok   { background:rgba(29,204,132,0.12); color:#1dcc84; border:1px solid rgba(29,204,132,0.2); }
+.days-left.ok    { background:rgba(29,204,132,0.12); color:#1dcc84; border:1px solid rgba(29,204,132,0.2); }
 .days-left.past { background:rgba(90,90,110,0.2); color:rgba(180,200,220,0.4); border:1px solid rgba(90,90,110,0.3); }
 
 /* Loading */
@@ -108,10 +111,10 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .modal-close:hover { background:rgba(0,212,240,0.1); color:#00D4F0; border-color:rgba(0,212,240,0.5); }
 .modal-brand-section { margin-bottom:20px; }
 .modal-brand-title { font-size:13px; font-weight:600; margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid rgba(0,212,240,0.08); }
-.brand-card.obs .modal-brand-title    { color:#1dcc84; }
+.brand-card.obs .modal-brand-title     { color:#1dcc84; }
 .brand-card.inesdi .modal-brand-title { color:#a878f0; }
 .brand-card.esdesign .modal-brand-title { color:#f0a830; }
-.brand-card.ucma .modal-brand-title   { color:#3aabf0; }
+.brand-card.ucma .modal-brand-title    { color:#3aabf0; }
 .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
 .field { display:flex; flex-direction:column; gap:5px; }
 .field label { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(0,200,230,0.4); }
@@ -143,7 +146,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 <div class="corner bl"></div><div class="corner br"></div>
 <div class="sys-tag">SYS.CONVO27 v1.0 · NET.ACTIVE</div>
 
-<!-- Topbar -->
 <div class="topbar">
   <div class="brand">
     <div class="brand-sq">
@@ -165,7 +167,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </a>
 </div>
 
-<!-- Page header -->
 <div class="page-head">
   <div class="page-eyebrow">módulo · convocatoria</div>
   <div class="page-title">
@@ -180,7 +181,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   <div class="page-sub">Gestión de convocatorias · Campaña 2027</div>
 </div>
 
-<!-- Nodes -->
 <div class="nodes-area">
   <svg class="connector-svg" viewBox="0 0 900 260" preserveAspectRatio="xMidYMid meet">
     <line x1="450" y1="130" x2="200" y2="130" stroke="rgba(0,200,240,0.1)" stroke-width="1" stroke-dasharray="5 5"/>
@@ -195,14 +195,15 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
   <div class="nodes-row">
 
-    <div class="node active" data-node="check" onclick="setActive(this)">
-      <div class="bubble">
+    <div class="node active" data-node="check" id="drop-zone" onclick="document.getElementById('file-input').click()">
+      <div class="bubble" id="bubble-check">
         <div class="status-badge badge-pend">⊙</div>
         <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
           <path d="M19 6l2.5 7.5H29l-6.5 4.5 2.5 7.5L19 21l-6 4.5 2.5-7.5L9 13.5h7.5z" stroke="#a878f0" stroke-width="1.6" stroke-linejoin="round"/>
         </svg>
       </div>
-      <span class="node-label">Herramienta Check</span>
+      <span class="node-label" id="check-label">Herramienta Check</span>
+      <input type="file" id="file-input" style="display:none" accept=".xlsx, .xls">
     </div>
 
     <div class="node" data-node="nuevo" onclick="setActive(this)">
@@ -233,7 +234,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
 <div class="divider"></div>
 
-<!-- Section header con lápiz -->
 <div class="section-header">
   <div class="section-title">Fechas clave</div>
   <button class="edit-corner-btn" onclick="openModal()">
@@ -242,7 +242,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </button>
 </div>
 
-<!-- Brands grid -->
 <div class="brands-grid" id="brandsGrid">
   <div class="loading-state" style="grid-column:1/-1">
     <div class="loading-dots"><span></span><span></span><span></span></div>
@@ -250,7 +249,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </div>
 </div>
 
-<!-- Modal edición -->
 <div class="overlay" id="editOverlay">
   <div class="modal">
     <div class="modal-head">
@@ -269,6 +267,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 </div>
 
 <script>
+// --- LÓGICA DE FONDO ANIMADO ---
 const cv = document.getElementById('bgc'), ctx = cv.getContext('2d');
 function drawBg() {
   cv.width = window.innerWidth; cv.height = window.innerHeight;
@@ -280,11 +279,6 @@ function drawBg() {
     ctx.beginPath();ctx.arc(x,y,.9,0,Math.PI*2);
     ctx.fillStyle=Math.random()>.72?'rgba(0,212,240,0.22)':'rgba(255,255,255,0.04)';ctx.fill();
   }
-  for(let i=0;i<80;i++){
-    const x=Math.random()*W,y=Math.random()*H,r=Math.random()*1.1+.15;
-    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
-    ctx.fillStyle=Math.random()>.5?`rgba(0,212,240,${Math.random()*.25+.04})`:`rgba(255,255,255,${Math.random()*.1+.02})`;ctx.fill();
-  }
 }
 drawBg(); window.addEventListener('resize', drawBg);
 
@@ -293,6 +287,86 @@ function setActive(el) {
   el.classList.add('active');
 }
 
+// --- LÓGICA HERRAMIENTA CHECK (DRAG & DROP) ---
+const dropZone = document.getElementById('drop-zone');
+const bubble = document.getElementById('bubble-check');
+const fileInput = document.getElementById('file-input');
+const checkLabel = document.getElementById('check-label');
+
+// Eventos visuales de arrastre
+['dragenter', 'dragover'].forEach(name => {
+    dropZone.addEventListener(name, (e) => {
+        e.preventDefault();
+        bubble.style.borderColor = "#ffff00";
+        bubble.style.boxShadow = "0 0 30px rgba(255, 255, 0, 0.4)";
+    });
+});
+
+['dragleave', 'drop'].forEach(name => {
+    dropZone.addEventListener(name, (e) => {
+        e.preventDefault();
+        bubble.style.borderColor = "";
+        bubble.style.boxShadow = "";
+    });
+});
+
+dropZone.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0]));
+fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+async function handleFile(file) {
+    if (!file) return;
+    
+    checkLabel.innerText = "Procesando...";
+    bubble.style.background = "rgba(255, 255, 0, 0.1)";
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        try {
+            const arrayBuffer = e.target.result;
+            const workbook = new ExcelJS.Workbook();
+            await workbook.xlsx.load(arrayBuffer);
+            
+            const worksheet = workbook.worksheets[0];
+            const regex = /[A-ZáéíóúÁÉÍÓÚ\s]/;
+
+            worksheet.eachRow((row) => {
+                row.eachCell((cell) => {
+                    const val = cell.value ? String(cell.value) : "";
+                    if (regex.test(val)) {
+                        cell.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: 'FFFF00' }
+                        };
+                        cell.border = {
+                            top: {style:'thin', color: {argb: 'FFD4D400'}},
+                            left: {style:'thin', color: {argb: 'FFD4D400'}},
+                            bottom: {style:'thin', color: {argb: 'FFD4D400'}},
+                            right: {style:'thin', color: {argb: 'FFD4D400'}}
+                        };
+                    }
+                });
+            });
+
+            const buffer = await workbook.xlsx.writeBuffer();
+            const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+            saveAs(blob, "Check_Finalizado_" + file.name);
+
+            checkLabel.innerText = "¡Completado!";
+        } catch (err) {
+            console.error(err);
+            checkLabel.innerText = "Error Archivo";
+        } finally {
+            setTimeout(() => {
+                checkLabel.innerText = "Herramienta Check";
+                bubble.style.background = "";
+            }, 3000);
+        }
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+// --- LÓGICA GESTIÓN DE FECHAS (EXISTENTE) ---
 const WORKER_URL = 'https://lucky-shadow-44ed.veronica-zueras.workers.dev';
 const STORE_KEY  = 'adminhub_convo27_fechas';
 
@@ -334,17 +408,14 @@ async function persist() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ key: STORE_KEY, value: data })
     });
-  } catch(e) {
-    console.error('Error guardando en KV:', e);
-  }
+  } catch(e) { console.error(e); }
 }
 
 function daysLeft(dateStr) {
   const parts = dateStr.split('/');
   if (parts.length !== 3) return null;
   const d = new Date(parts[2], parts[1]-1, parts[0]);
-  const diff = Math.round((d - new Date()) / 86400000);
-  return diff;
+  return Math.round((d - new Date()) / 86400000);
 }
 
 function daysTag(dateStr) {
@@ -393,9 +464,7 @@ function openModal() {
   document.getElementById('editOverlay').classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('editOverlay').classList.remove('open');
-}
+function closeModal() { document.getElementById('editOverlay').classList.remove('open'); }
 
 async function saveDates() {
   BRANDS.forEach(b => {
