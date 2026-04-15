@@ -797,7 +797,7 @@ function buildStep3() {
   } else {
     grid.innerHTML = usarCols.map(c => `
       <label class="cruce-col-check">
-        <input type="checkbox" value="${c}" checked>
+        <input type="checkbox" value="${c}">
         <span>${c}</span>
       </label>
     `).join('');
@@ -810,10 +810,13 @@ function ejecutarCruce() {
 
   const checks = document.querySelectorAll('#cruceCols input:checked');
   const colsCompare = Array.from(checks).map(c => c.value).filter(c => c !== keyCol);
+  if(colsCompare.length === 0) {
+    alert('Selecciona al menos una columna a comparar para detectar discrepancias.\nSi solo quieres ver presencia (quién está en A y quién en B), marca las columnas identificativas.');
+    return;
+  }
 
   const dataA = cruceState.dataA;
   const dataB = cruceState.dataB;
-  const mode  = cruceState.mode;
 
   // Indexar B por clave
   const mapB = {};
@@ -828,13 +831,16 @@ function ejecutarCruce() {
     const k = String(row[keyCol]||'').trim().toUpperCase();
     if(!k) return;
     if(!mapB[k]) { soloA.push(row); return; }
-    // Comparar columnas
+    // Comparar columnas seleccionadas
     const diffs = [];
     colsCompare.forEach(col => {
       const vA = String(row[col]||'').trim();
-      const vB = String(mapB[k][col]||'').trim();
+      const rowB = mapB[k];
+      // Buscar la columna en B con comparación insensible a mayúsculas
+      const colBKey = Object.keys(rowB).find(k2 => k2.trim().toLowerCase() === col.trim().toLowerCase()) || col;
+      const vB = String(rowB[colBKey]||'').trim();
       if(vA.toUpperCase() !== vB.toUpperCase()) {
-        diffs.push({ ...row, __CAMPO__: col, __VALOR_A__: vA, __VALOR_B__: vB });
+        diffs.push({ _CLAVE_: String(row[keyCol]||''), _CAMPO_: col, _VALOR_A_: vA, _VALOR_B_: vB });
       }
     });
     if(diffs.length > 0) discrepancias.push(...diffs);
@@ -846,7 +852,7 @@ function ejecutarCruce() {
     if(!mapA[k]) soloB.push(row);
   });
 
-  // Duplicados en A
+  // Duplicados
   const countA = {};
   dataA.forEach(row => { const k = String(row[keyCol]||'').trim().toUpperCase(); countA[k]=(countA[k]||0)+1; });
   dataA.forEach(row => { const k = String(row[keyCol]||'').trim().toUpperCase(); if(countA[k]>1) duplicadosA.push(row); });
@@ -854,79 +860,76 @@ function ejecutarCruce() {
   dataB.forEach(row => { const k = String(row[keyCol]||'').trim().toUpperCase(); countB[k]=(countB[k]||0)+1; });
   dataB.forEach(row => { const k = String(row[keyCol]||'').trim().toUpperCase(); if(countB[k]>1) duplicadosB.push(row); });
 
+  const nDiscReg = [...new Set(discrepancias.map(r=>String(r._CLAVE_||'').trim().toUpperCase()))].length;
+  const nDupA = duplicadosA.length, nDupB = duplicadosB.length;
+  const hasDup = nDupA > 0 || nDupB > 0;
+
   // Construir Excel con SheetJS
   const wb = XLSX.utils.book_new();
   const hoy = new Date();
   const fechaStr = String(hoy.getDate()).padStart(2,'0')+'/'+String(hoy.getMonth()+1).padStart(2,'0')+'/'+hoy.getFullYear();
   const horaStr  = String(hoy.getHours()).padStart(2,'0')+':'+String(hoy.getMinutes()).padStart(2,'0');
-
-  // PESTAÑA RESUMEN
   const total = dataA.length;
-  const resumenData = [
-    ['#','Concepto','Registros','% sobre A'],
-    [1,'Total fichero A (tu listado)', dataA.length, '—'],
-    [2,'Total fichero B (listado general)', dataB.length, '—'],
-    [3,'Coincidencias exactas', coincidencias.length, total>0 ? (coincidencias.length/total*100).toFixed(1)+'%' : '—'],
-    [4,'Solo en A (no están en B)', soloA.length, total>0 ? (soloA.length/total*100).toFixed(1)+'%' : '—'],
-    [5,'Solo en B (no están en A)', soloB.length, '—'],
-    [6,'Coinciden en clave pero con discrepancias', [...new Set(discrepancias.map(r=>String(r[keyCol]||'').trim().toUpperCase()))].length, '—'],
-    [7,'Duplicados en fichero A', duplicadosA.length, '—'],
-    [8,'Duplicados en fichero B', duplicadosB.length, '—'],
-    ['','','',''],
-    ['','Generado: '+fechaStr+' · '+horaStr+' · Clave usada: '+keyCol,'','']
+
+  // Helper: celda hipervínculo a pestaña
+  function linkCell(text, sheetName) {
+    return { t:'s', v: String(text), l:{ Target: "'"+sheetName+"'!A1", Tooltip: 'Ver detalle en pestaña '+sheetName } };
+  }
+  function pct(n) { return total>0 ? (n/total*100).toFixed(1)+'%' : '—'; }
+
+  // PESTAÑA RESUMEN — números como hipervínculos a su pestaña de detalle
+  const resumenRows = [
+    ['#', 'Concepto', 'Registros', '% sobre A'],
+    [1, 'Total fichero A (tu listado)',        dataA.length,        '—'],
+    [2, 'Total fichero B (listado general)',    dataB.length,        '—'],
+    [3, 'Coincidencias exactas',               linkCell(coincidencias.length, 'Coincidencias'),  pct(coincidencias.length)],
+    [4, 'Solo en A (no están en B)',            linkCell(soloA.length, 'Solo en A'),             pct(soloA.length)],
+    [5, 'Solo en B (no están en A)',            linkCell(soloB.length, 'Solo en B'),             '—'],
+    [6, 'Coinciden en clave con discrepancias', linkCell(nDiscReg,    'Discrepancias'),          pct(nDiscReg)],
+    [7, 'Duplicados en fichero A',              hasDup ? linkCell(nDupA, 'Duplicados') : nDupA, '—'],
+    [8, 'Duplicados en fichero B',              hasDup ? linkCell(nDupB, 'Duplicados') : nDupB, '—'],
+    ['', '', '', ''],
+    ['', 'Generado: '+fechaStr+' · '+horaStr+' · Clave: '+keyCol+' · Columnas comparadas: '+colsCompare.join(', '), '', '']
   ];
-  const wsResumen = XLSX.utils.aoa_to_sheet(resumenData);
-  wsResumen['!cols'] = [{wch:4},{wch:52},{wch:14},{wch:16}];
+
+  // Construir hoja RESUMEN manualmente para mezclar celdas normales y links
+  const wsResumen = XLSX.utils.aoa_to_sheet(resumenRows);
+  wsResumen['!cols'] = [{wch:4},{wch:56},{wch:14},{wch:14}];
   XLSX.utils.book_append_sheet(wb, wsResumen, 'RESUMEN');
 
-  // Función helper para añadir hoja de datos
-  function addSheet(nombre, datos) {
+  // Helper: añadir hoja de datos con columnas limpias (sin _internas_)
+  function addSheet(nombre, datos, extraCols) {
     if(!datos || datos.length===0) {
       const ws = XLSX.utils.aoa_to_sheet([['Sin registros en esta categoría']]);
-      XLSX.utils.book_append_sheet(wb, ws, nombre);
-      return;
+      XLSX.utils.book_append_sheet(wb, ws, nombre); return;
     }
     const ws = XLSX.utils.json_to_sheet(datos);
     XLSX.utils.book_append_sheet(wb, ws, nombre);
   }
 
-  // PESTAÑA SOLO EN A
+  addSheet('Coincidencias', coincidencias);
   addSheet('Solo en A', soloA);
-
-  // PESTAÑA SOLO EN B
   addSheet('Solo en B', soloB);
 
-  // PESTAÑA DISCREPANCIAS — reorganizar columnas para claridad
+  // PESTAÑA DISCREPANCIAS — columnas limpias: clave · campo · valor A · valor B
   if(discrepancias.length > 0) {
-    const discData = discrepancias.map(r => {
-      const base = {};
-      base[keyCol] = r[keyCol];
-      base['__CAMPO__'] = r['__CAMPO__'];
-      base['__VALOR_A__'] = r['__VALOR_A__'];
-      base['__VALOR_B__'] = r['__VALOR_B__'];
-      return base;
-    });
-    // Renombrar cabeceras
-    const discRen = discData.map(r => ({
-      [keyCol]: r[keyCol],
-      'Campo con discrepancia': r['__CAMPO__'],
-      'Valor en A': r['__VALOR_A__'],
-      'Valor en B': r['__VALOR_B__']
+    const discLimpio = discrepancias.map(r => ({
+      [keyCol]:                   r._CLAVE_,
+      'Campo con discrepancia':   r._CAMPO_,
+      'Valor en A':               r._VALOR_A_,
+      'Valor en B':               r._VALOR_B_
     }));
-    addSheet('Discrepancias', discRen);
+    addSheet('Discrepancias', discLimpio);
   } else {
-    const ws = XLSX.utils.aoa_to_sheet([['Sin discrepancias detectadas']]);
+    const ws = XLSX.utils.aoa_to_sheet([['Sin discrepancias detectadas (columnas comparadas: '+colsCompare.join(', ')+')']]);
     XLSX.utils.book_append_sheet(wb, ws, 'Discrepancias');
   }
 
-  // PESTAÑA COINCIDENCIAS
-  addSheet('Coincidencias', coincidencias);
-
-  // PESTAÑA DUPLICADOS (solo si hay)
-  if(duplicadosA.length > 0 || duplicadosB.length > 0) {
+  // PESTAÑA DUPLICADOS
+  if(hasDup) {
     const dupAll = [
-      ...duplicadosA.map(r=>({...r, '__ORIGEN__':'Fichero A'})),
-      ...duplicadosB.map(r=>({...r, '__ORIGEN__':'Fichero B'}))
+      ...duplicadosA.map(r=>({...r, 'Origen':'Fichero A'})),
+      ...duplicadosB.map(r=>({...r, 'Origen':'Fichero B'}))
     ];
     addSheet('Duplicados', dupAll);
   }
@@ -934,7 +937,6 @@ function ejecutarCruce() {
   // Descargar
   const fecha = hoy.getFullYear().toString()+String(hoy.getMonth()+1).padStart(2,'0')+String(hoy.getDate()).padStart(2,'0');
   XLSX.writeFile(wb, 'CHECK_Resultado_'+fecha+'.xlsx');
-
   closeCruceModal();
 }
 
