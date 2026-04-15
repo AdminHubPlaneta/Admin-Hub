@@ -873,7 +873,7 @@ function ejecutarCruce() {
 
   // Helper: celda hipervínculo a pestaña
   function linkCell(text, sheetName) {
-    return { t:'s', v: String(text), l:{ Target: "'"+sheetName+"'!A1", Tooltip: 'Ver detalle en pestaña '+sheetName } };
+    return { t:'s', f:'HYPERLINK("#\''+sheetName+'\'!A1","'+String(text)+'")', v:String(text) };
   }
   function pct(n) { return total>0 ? (n/total*100).toFixed(1)+'%' : '—'; }
 
