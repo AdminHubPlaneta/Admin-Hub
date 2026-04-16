@@ -38,8 +38,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .search-input:focus { border-color:#00E6FF; box-shadow:0 0 0 3px rgba(0,230,255,0.12); }
 .search-input::placeholder { color:rgba(0,200,230,0.22); }
 .total-pill { background:rgba(0,30,55,0.8); border:1px solid rgba(0,230,255,0.15); border-radius:8px; padding:6px 12px; font-size:11px; color:rgba(0,200,230,0.5); white-space:nowrap; }
-
-/* ── Tarjetas marca ── */
 .section-lbl { position:relative; z-index:10; padding:22px 32px 0; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(0,230,255,0.3); display:flex; align-items:center; gap:6px; }
 .section-lbl::before { content:''; display:inline-block; width:18px; height:1px; background:rgba(0,230,255,0.2); }
 .marca-grid { position:relative; z-index:10; padding:10px 32px 0; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
@@ -66,8 +64,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .mc.ucma .mc-stat-val   { color:#3aabf0; }
 .mc-stat-val.muted { color:rgba(220,245,255,0.45) !important; font-size:18px; }
 .mc-updated { font-size:9px; color:rgba(0,180,210,0.2); margin-top:9px; text-align:right; font-family:'Courier New',monospace; }
-
-/* ── Burbujas reportes ── */
 .bubbles-wrap { position:relative; z-index:10; padding:14px 32px 60px; display:flex; flex-wrap:wrap; gap:28px; justify-content:center; }
 .rnode { display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1); }
 .rnode:hover { transform:scale(1.1); }
@@ -78,7 +74,7 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .rbubble-edit { position:absolute; bottom:4px; right:4px; width:24px; height:24px; border-radius:50%; background:rgba(0,20,40,0.92); border:1px solid rgba(0,230,255,0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.15s; }
 .rnode:hover .rbubble-edit { border-color:rgba(0,230,255,0.6); }
 
-/* Modal */
+/* ── Modal base ── */
 .overlay { position:fixed; inset:0; z-index:200; background:rgba(0,5,15,0.85); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:1rem; }
 .overlay.open { display:flex; }
 .modal { width:min(500px,96vw); max-height:90vh; overflow-y:auto; background:#030E1E; border:1px solid rgba(0,230,255,0.3); border-radius:18px; padding:24px; box-shadow:0 0 60px rgba(0,180,255,0.12); animation:fadeUp 0.28s ease; }
@@ -101,6 +97,38 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .btn-delete { display:none; align-items:center; gap:6px; background:rgba(163,45,45,0.15); border:1px solid rgba(240,149,149,0.3); border-radius:9px; padding:9px 16px; color:#F09595; font-size:13px; cursor:pointer; font-family:inherit; margin-right:auto; transition:all 0.15s; }
 .btn-delete:hover { background:rgba(163,45,45,0.3); }
 
+/* ── Modal Cierres Antiguos ── */
+#cierresOverlay { position:fixed; inset:0; z-index:200; background:rgba(0,5,15,0.85); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:1rem; }
+#cierresOverlay.open { display:flex; }
+.cierres-modal { width:min(620px,96vw); background:#030E1E; border:1px solid rgba(0,230,255,0.3); border-radius:18px; overflow:hidden; box-shadow:0 0 60px rgba(0,180,255,0.12); animation:fadeUp 0.28s ease; }
+.cierres-header { display:flex; align-items:center; justify-content:space-between; padding:16px 22px; border-bottom:1px solid rgba(0,230,255,0.1); }
+.cierres-header-left { display:flex; align-items:center; gap:11px; }
+.cierres-header-icon { width:30px; height:30px; border-radius:50%; border:1.5px solid rgba(0,230,255,0.5); display:flex; align-items:center; justify-content:center; }
+.cierres-title { color:#00D4F0; font-size:13px; letter-spacing:1px; text-transform:uppercase; margin:0; }
+.cierres-sub { color:rgba(255,255,255,0.35); font-size:10px; margin:3px 0 0; }
+.cierres-close { width:22px; height:22px; border-radius:50%; border:1px solid rgba(255,255,255,0.15); background:transparent; color:rgba(255,255,255,0.4); font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-family:inherit; transition:all 0.15s; }
+.cierres-close:hover { border-color:rgba(0,230,255,0.5); color:#00E6FF; }
+.cierres-body { padding:28px 32px; }
+.cierres-nodes { display:flex; justify-content:center; flex-wrap:wrap; gap:28px; margin-bottom:22px; }
+.cnode { display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1); text-decoration:none; }
+.cnode:hover { transform:scale(1.1); }
+.cbubble { width:108px; height:108px; border-radius:50%; background:rgba(3,10,20,0.92); display:flex; align-items:center; justify-content:center; transition:border-color 0.2s, box-shadow 0.2s; box-shadow:inset 0 0 22px rgba(0,80,140,0.1); }
+.cnode:hover .cbubble { box-shadow:0 0 22px rgba(0,230,255,0.14),inset 0 0 22px rgba(0,100,160,0.1); }
+.cnode-label { font-size:13px; font-weight:500; text-align:center; line-height:1.3; }
+.cnode-add .cbubble { border:1.5px dashed rgba(0,230,255,0.3); }
+.cnode-add .cnode-label { color:rgba(0,230,255,0.45); font-size:12px; }
+.cierres-hint { background:#020B18; border:1px dashed rgba(0,230,255,0.15); border-radius:10px; padding:10px 16px; display:flex; align-items:center; gap:10px; }
+.cierres-hint p { color:rgba(255,255,255,0.25); font-size:10px; margin:0; line-height:1.5; }
+.cierres-hint span { color:rgba(0,212,240,0.5); }
+
+/* ── Sub-modal añadir cierre ── */
+#addCierreOverlay { position:fixed; inset:0; z-index:300; background:rgba(0,5,15,0.88); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:1rem; }
+#addCierreOverlay.open { display:flex; }
+.color-swatches { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+.swatch { width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:transform 0.15s, border-color 0.15s; }
+.swatch:hover { transform:scale(1.15); }
+.swatch.selected { border-color:#fff; }
+
 @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
 .empty-state { width:100%; text-align:center; padding:3rem 1rem; color:rgba(0,200,230,0.28); }
 .empty-state svg { margin:0 auto 14px; display:block; opacity:.35; }
@@ -111,6 +139,8 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   .marca-grid { grid-template-columns:repeat(2,1fr); }
   .page-title { font-size:20px; }
   .add-btn { position:static; margin:12px 16px 0; }
+  .cierres-nodes { gap:18px; }
+  .cbubble { width:86px; height:86px; }
 }
 @media(max-width:420px){ .marca-grid { grid-template-columns:1fr; } }
 </style>
@@ -169,7 +199,6 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   <div class="total-pill" id="totalPill">0 reportes</div>
 </div>
 
-<!-- Tarjetas fijas de marca -->
 <div class="section-lbl">DATOS CLAVE</div>
 <div class="marca-grid">
   <div class="mc obs" style="animation-delay:0s">
@@ -222,11 +251,10 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </div>
 </div>
 
-<!-- Reportes dinámicos como burbujas -->
 <div class="section-lbl" style="padding-top:24px;">Reportes</div>
 <div class="bubbles-wrap" id="grid"></div>
 
-<!-- Modal -->
+<!-- Modal reporte genérico -->
 <div class="overlay" id="formOverlay">
   <div class="modal">
     <div class="modal-head">
@@ -261,6 +289,54 @@ canvas#bgc { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   </div>
 </div>
 
+<!-- Modal Cierres Antiguos -->
+<div id="cierresOverlay" onclick="cierresOverlayClick(event)">
+  <div class="cierres-modal">
+    <div class="cierres-header">
+      <div class="cierres-header-left">
+        <div class="cierres-header-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00E6FF" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div>
+          <p class="cierres-title">Cierres Antiguos</p>
+          <p class="cierres-sub">Selecciona la convocatoria para abrirla</p>
+        </div>
+      </div>
+      <button class="cierres-close" onclick="closeCierresModal()">✕</button>
+    </div>
+    <div class="cierres-body">
+      <div class="cierres-nodes" id="cierresNodes"></div>
+      <div class="cierres-hint">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,240,0.35)" stroke-width="1.5" style="flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <p>Clic en la convocatoria para abrirla · Usa <span>Añadir año</span> para crear una nueva · Los cambios se sincronizan para todos</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sub-modal añadir cierre -->
+<div id="addCierreOverlay" onclick="addCierreOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Añadir convocatoria
+      </h2>
+      <button class="modal-close" onclick="closeAddCierre()">✕</button>
+    </div>
+    <div class="field"><label>Nombre *</label><input type="text" id="cNombre" placeholder="Ej: 2026, Q1-2026…"></div>
+    <div class="field"><label>URL</label><input type="url" id="cUrl" placeholder="https://…"></div>
+    <div class="field">
+      <label>Color</label>
+      <div class="color-swatches" id="cierreSwatches"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="closeAddCierre()">Cancelar</button>
+      <button class="btn-save" onclick="saveNewCierre()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const cv = document.getElementById('bgc'), ctx = cv.getContext('2d');
 function drawBg() {
@@ -281,26 +357,42 @@ function drawBg() {
 }
 drawBg(); window.addEventListener('resize', drawBg);
 
-const WORKER_URL = 'https://lucky-shadow-44ed.veronica-zueras.workers.dev';
-const STORE_KEY  = 'adminhub_reportes_v1';
-const DATA_URL   = ''; // ← Pega aquí la URL de datos cuando esté disponible
+const WORKER_URL   = 'https://lucky-shadow-44ed.veronica-zueras.workers.dev';
+const STORE_KEY    = 'adminhub_reportes_v1';
+const CIERRES_KEY  = 'adminhub_cierres_v1';
+const DATA_URL     = '';
+
+const CIERRES_DEFAULTS = [
+  { nombre:'2024', url:'', color:'#1dcc84' },
+  { nombre:'2025', url:'', color:'#a878f0' }
+];
+
+const SWATCH_COLORS = ['#1dcc84','#a878f0','#f0a830','#3aabf0','#00E6FF','#f07878','#FFD700','#ff7eb3'];
 
 const DEFAULTS = [
   { title:'Becas',           desc:'Informe de alumnos con beca activa',   url:'', color:'#1dcc84', date:'' },
-  { title:'Cierres Antiguos',desc:'Histórico de cierres contables',        url:'', color:'#f0a830', date:'' },
+  { title:'Cierres Antiguos',desc:'Histórico de cierres contables',        url:'__CIERRES__',   color:'#f0a830', date:'' },
   { title:'BI Curva',        desc:'Dashboard Power BI · curva de cobros', url:'', color:'#3aabf0', date:'' },
   { title:'SXDataHub',       desc:'Plataforma de datos SalesXcelerate',   url:'', color:'#a878f0', date:'' }
 ];
 
 let items = [], editIdx = null;
+let cierres = [], selectedSwatchColor = '#1dcc84';
 
+// ─── Carga inicial ───────────────────────────────────────────
 async function load() {
   try {
-    const res = await fetch(`${WORKER_URL}/kv?key=${STORE_KEY}`);
-    const data = await res.json();
-    items = data.value ? JSON.parse(data.value) : JSON.parse(JSON.stringify(DEFAULTS));
+    const [r1, r2] = await Promise.all([
+      fetch(`${WORKER_URL}/kv?key=${STORE_KEY}`),
+      fetch(`${WORKER_URL}/kv?key=${CIERRES_KEY}`)
+    ]);
+    const d1 = await r1.json();
+    const d2 = await r2.json();
+    items   = d1.value ? JSON.parse(d1.value) : JSON.parse(JSON.stringify(DEFAULTS));
+    cierres = d2.value ? JSON.parse(d2.value) : JSON.parse(JSON.stringify(CIERRES_DEFAULTS));
   } catch(e) {
-    items = JSON.parse(JSON.stringify(DEFAULTS));
+    items   = JSON.parse(JSON.stringify(DEFAULTS));
+    cierres = JSON.parse(JSON.stringify(CIERRES_DEFAULTS));
   }
   renderGrid();
   if (DATA_URL) loadMarcaData();
@@ -326,6 +418,7 @@ async function loadMarcaData() {
 
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+// ─── Grid reportes ────────────────────────────────────────────
 function renderGrid() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const filtered = items.filter(r => !q || r.title.toLowerCase().includes(q) || (r.desc||'').toLowerCase().includes(q));
@@ -341,9 +434,12 @@ function renderGrid() {
   grid.innerHTML = filtered.map((r, fi) => {
     const ri = items.indexOf(r);
     const color = r.color || '#00E6FF';
+    const isCierres = r.url === '__CIERRES__';
+    const clickAction = isCierres
+      ? `openCierresModal()`
+      : (r.url ? `window.open('${esc(r.url)}','_blank')` : '');
     return `<div class="rnode" style="animation:fadeUp 0.35s ease ${fi*0.05}s both">
-      <div class="rbubble" style="border-color:${color}55;"
-        onclick="if('${esc(r.url)}') window.open('${esc(r.url)}','_blank')">
+      <div class="rbubble" style="border-color:${color}55;" onclick="${clickAction}">
         <svg width="32" height="32" viewBox="0 0 30 30" fill="none">
           <path d="M3 26l7-10 6 5 6-11 6 7" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -356,6 +452,95 @@ function renderGrid() {
   }).join('');
 }
 
+// ─── Modal Cierres Antiguos ───────────────────────────────────
+function openCierresModal() {
+  renderCierresNodes();
+  document.getElementById('cierresOverlay').classList.add('open');
+}
+
+function closeCierresModal() {
+  document.getElementById('cierresOverlay').classList.remove('open');
+}
+
+function cierresOverlayClick(e) {
+  if (e.target === document.getElementById('cierresOverlay')) closeCierresModal();
+}
+
+function renderCierresNodes() {
+  const container = document.getElementById('cierresNodes');
+  const nodes = cierres.map((c, i) => {
+    const color = c.color || '#00E6FF';
+    const clickAttr = c.url ? `onclick="window.open('${esc(c.url)}','_blank')"` : '';
+    return `<div class="cnode" ${clickAttr} title="${esc(c.nombre)}${c.url ? '' : ' (sin URL)'}">
+      <div class="cbubble" style="border:1.5px solid ${color}55;">
+        <svg width="36" height="36" viewBox="0 0 30 30" fill="none">
+          <path d="M3 26l7-10 6 5 6-11 6 7" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="cnode-label" style="color:${color}cc;">${esc(c.nombre)}</span>
+    </div>`;
+  }).join('');
+
+  const addNode = `<div class="cnode cnode-add" onclick="openAddCierre()">
+    <div class="cbubble" style="border:1.5px dashed rgba(0,230,255,0.3);">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(0,230,255,0.5)" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+    <span class="cnode-label">Añadir año</span>
+  </div>`;
+
+  container.innerHTML = nodes + addNode;
+}
+
+// ─── Sub-modal añadir cierre ─────────────────────────────────
+function openAddCierre() {
+  document.getElementById('cNombre').value = '';
+  document.getElementById('cUrl').value = '';
+  selectedSwatchColor = SWATCH_COLORS[0];
+  renderSwatches();
+  document.getElementById('addCierreOverlay').classList.add('open');
+}
+
+function closeAddCierre() {
+  document.getElementById('addCierreOverlay').classList.remove('open');
+}
+
+function addCierreOverlayClick(e) {
+  if (e.target === document.getElementById('addCierreOverlay')) closeAddCierre();
+}
+
+function renderSwatches() {
+  document.getElementById('cierreSwatches').innerHTML = SWATCH_COLORS.map(c => `
+    <div class="swatch ${c === selectedSwatchColor ? 'selected' : ''}"
+      style="background:${c};"
+      onclick="selectSwatch('${c}')">
+    </div>`).join('');
+}
+
+function selectSwatch(color) {
+  selectedSwatchColor = color;
+  renderSwatches();
+}
+
+async function saveNewCierre() {
+  const nombre = document.getElementById('cNombre').value.trim();
+  if (!nombre) { alert('El nombre es obligatorio.'); return; }
+  const url = document.getElementById('cUrl').value.trim();
+  cierres.push({ nombre, url, color: selectedSwatchColor });
+  await persistCierres();
+  closeAddCierre();
+  renderCierresNodes();
+}
+
+async function persistCierres() {
+  try {
+    await fetch(`${WORKER_URL}/kv`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ key: CIERRES_KEY, value: cierres })
+    });
+  } catch(e) { console.error('KV cierres error:', e); }
+}
+
+// ─── Modal reporte genérico ──────────────────────────────────
 function openAdd() {
   editIdx = null;
   document.getElementById('formTitle').textContent = 'Nuevo reporte';
@@ -373,7 +558,7 @@ function openEdit(idx) {
   document.getElementById('formTitle').textContent = 'Editar reporte';
   document.getElementById('fTitle').value = r.title;
   document.getElementById('fDesc').value = r.desc || '';
-  document.getElementById('fUrl').value = r.url || '';
+  document.getElementById('fUrl').value = (r.url === '__CIERRES__' ? '' : r.url) || '';
   document.getElementById('fColor').value = r.color || '#00E6FF';
   document.getElementById('deleteBtn').style.display = 'flex';
   document.getElementById('formOverlay').classList.add('open');
@@ -382,10 +567,12 @@ function openEdit(idx) {
 async function saveReport() {
   const title = document.getElementById('fTitle').value.trim();
   if (!title) { alert('El nombre es obligatorio.'); return; }
+  const rawUrl = document.getElementById('fUrl').value.trim();
+  const isCierres = editIdx !== null && items[editIdx]?.url === '__CIERRES__';
   const obj = {
     title,
     desc:  document.getElementById('fDesc').value.trim(),
-    url:   document.getElementById('fUrl').value.trim(),
+    url:   isCierres ? '__CIERRES__' : rawUrl,
     color: document.getElementById('fColor').value,
     date:  editIdx !== null ? items[editIdx].date : new Date().toLocaleDateString('es-ES')
   };
