@@ -438,7 +438,7 @@ function renderGrid() {
   grid.innerHTML = filtered.map((r, fi) => {
     const ri = items.indexOf(r);
     const color = r.color || '#00E6FF';
-    const isCierres = r.url === '__CIERRES__';
+    const isCierres = r.url === '__CIERRES__' || r.title.toLowerCase().includes('cierres');
     const clickAction = isCierres
       ? `openCierresModal()`
       : (r.url ? `window.open('${esc(r.url)}','_blank')` : '');
