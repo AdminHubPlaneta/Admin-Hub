@@ -499,7 +499,7 @@ function renderBNodes(type) {
     const color = c.color || '#00E6FF';
     const clickAction = c.url ? `window.open('${esc(c.url)}','_blank')` : '';
     return `<div class="cnode">
-      <div class="cbubble" style="border:1.5px solid ${color}55;" onclick="${clickAction}" title="${esc(c.nombre)}">
+      <div class="cbubble" style="border:1.5px solid ${color}cc;" onclick="${clickAction}" title="${esc(c.nombre)}">
         <svg width="36" height="36" viewBox="0 0 30 30" fill="none">
           <path d="M3 26l7-10 6 5 6-11 6 7" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
